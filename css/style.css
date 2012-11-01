@@ -1,0 +1,141 @@
+ol.vehicles li 
+{
+	display: block;
+	padding: 10px;
+	border: 1px solid #CCCCCC;
+	//position: relative;
+	color: black;
+	width: 50%;
+	clear: both;
+	
+}
+body
+{
+	font-family: Arial;
+	font-size: 12px;
+	
+	
+}
+div#search-panel
+{
+	position: relative;
+}
+li 
+{
+	list-style: none;
+}
+
+ol.vehicles li a {
+    display: block;
+    //padding: 18px 20px 18px 5px;
+    text-decoration: none;
+	position: relative;
+}
+ol.vehicles li .image-container {
+	position: relative;
+}
+ol.vehicles li .image-crop-box {
+    display: inline-block;
+	
+}
+
+ol.vehicles li .image-container .index {
+    //background-image: url("/resources/img/map/blank_box.png");
+	background-color: blue;
+    background-repeat: no-repeat;
+    box-shadow: 0 2px 4px 0 #686868;
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+    height: 18px;
+    left: 20px;
+    padding-top: 2px;
+    position: absolute;
+    text-align: center;
+    //top: 10px;
+    width: 22px;
+	//float:left;
+}
+ol.vehicles li .image-container 
+{
+	border-left: 1px solid #E1E1E1;
+	//float: left;
+    margin-right: 15px;
+    padding: 20px;
+    //position: relative;
+	 display: inline-block;
+}
+ol.vehicles li .pricing {
+    //position: absolute;
+    //left: 0;
+    text-align: left;
+   	float: left;
+	padding-right: 20px;
+	display: block;
+	
+	
+}
+ol.vehicles li  .pricing .hourly
+{
+	color: #333333;
+    font-size: 24px;
+	display: block;
+}
+
+ol.vehicles li .pricing .daily {
+    color: #999999;
+    font-size: 16px;
+	display: block;
+}
+
+
+ol.vehicles li .details {
+    //display: block;
+    overflow: hidden;
+	//position: relative;
+}
+ol.vehicles li .model {
+	font-size: 16px;
+    font-weight: bold;
+    max-width: 260px;
+    padding-top: 2px;
+	display: inline-block;
+	vertical-align: top;
+	
+}
+ol.vehicles li .access {
+	position: absolute;
+	right: 5px;
+	top: 130px;
+	
+}
+ol.vehicle li .model 
+{
+	margin: 10px;
+}
+
+div#searchcaragin
+{
+	display:block;
+	color: #999999;
+	margin: 40px;
+	
+}
+div#filterandsorting
+{
+	margin: 40px;
+}
+
+div#sidebar
+{
+	position: absolute;
+	display: inline-block;
+}
+
+#map				
+{ 
+	width: 462px; 
+	height: 222px;
+	top: 207px;
+	left: 74px; 
+}
