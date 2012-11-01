@@ -1,11 +1,13 @@
+
+
 ol.vehicles li 
 {
 	display: block;
 	padding: 10px;
 	border: 1px solid #CCCCCC;
-	//position: relative;
+	
 	color: black;
-	width: 50%;
+	//width: 50%;
 	clear: both;
 	
 }
@@ -18,11 +20,22 @@ body
 }
 div#search-panel
 {
-	position: relative;
+	//display:block;
+	
+	margin: 0 auto;
+    min-height: 600px;
+    position: relative;
+    z-index: 2;
+	width: 80%;
 }
 li 
 {
 	list-style: none;
+	margin-bottom: 10px;
+}
+
+ol.vehicles detail {
+	display: block;
 }
 
 ol.vehicles li a {
@@ -30,6 +43,9 @@ ol.vehicles li a {
     //padding: 18px 20px 18px 5px;
     text-decoration: none;
 	position: relative;
+}
+span {
+	//display: block;
 }
 ol.vehicles li .image-container {
 	position: relative;
@@ -40,9 +56,9 @@ ol.vehicles li .image-crop-box {
 }
 
 ol.vehicles li .image-container .index {
-    //background-image: url("/resources/img/map/blank_box.png");
+    
 	background-color: blue;
-    background-repeat: no-repeat;
+    
     box-shadow: 0 2px 4px 0 #686868;
     color: red;
     font-size: 14px;
@@ -60,10 +76,10 @@ ol.vehicles li .image-container
 {
 	border-left: 1px solid #E1E1E1;
 	//float: left;
-    margin-right: 15px;
+    
     padding: 20px;
     //position: relative;
-	 display: inline-block;
+	display: inline-block;
 }
 ol.vehicles li .pricing {
     //position: absolute;
@@ -126,16 +142,26 @@ div#filterandsorting
 	margin: 40px;
 }
 
-div#sidebar
-{
-	position: absolute;
-	display: inline-block;
-}
-
 #map				
 { 
-	width: 462px; 
+	width: 500px; 
 	height: 222px;
 	top: 207px;
 	left: 74px; 
+}
+
+#search-panel #sidebar {
+    float: right;
+	padding-left: 40px;
+    
+}
+
+ #search-panel #results {
+    border-right: 1px solid #CCCCCC;
+	padding-right: 85px;
+    padding-bottom: 40px;
+    position: relative;
+    width: 600px;
+	float:right;
+	
 }
