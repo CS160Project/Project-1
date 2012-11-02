@@ -3,7 +3,7 @@
 
     $articles = array();
  	getArticles('http://www.wheelz.com/vehicles/search?vehicle_search%5Baddress%5D=West+Los+Angeles,+CA');
-
+	
 	// URLs that will give 1 or more car postings
     // http://www.wheelz.com/vehicles/search?vehicle_search%5Baddress%5D=San+Francisco,+CA
     // http://www.wheelz.com/vehicles/search?vehicle_search%5Baddress%5D=Berkeley,+CA
@@ -22,6 +22,7 @@
 
 		foreach($items as $post)
 		{
+			
 			$articles[] = array($post->children(0)->outertext);
 		}
 
