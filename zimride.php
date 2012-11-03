@@ -10,18 +10,23 @@
 
     $folder = file_get_html("http://www.zimride.com/search?filterSearch=true&filter_vehicle=$type");
 
-	echo $folder;
+	foreach ($folder->find('div.results div.ride_list') as $e)
+	{
+		$main1 = $e->childNodes(0)->getAttribute('href');
+		echo $main1;
+		$main2 = $e->find('div[class=entry]',0)->find('div[class=price_box]',0)->find('div[class=seats]',0)->childNodes(0)->text();
+		echo $main2;
 
-	foreach ($folder->find('div[class=ride_list]') as $e){
-        $main2 = array($e->childNodes(0)->outertext);
+        $arr[] = array(     'listing' => $main2,
+        					'url' => $main1
+               		  );
     }
 
-    $response = $main2;
+    $response = $arr;
 
     $fp = fopen('results.json', 'w');
     fwrite($fp, json_encode($response));
     fclose($fp);
-
 
     $folder->clear();
     $homepage = file_get_contents('./zimride_sample.html', false);
