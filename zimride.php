@@ -8,10 +8,10 @@
 
     // Retrieve the DOM from a given URL
 
-    $folder = file_get_html("http://www.zimride.com/search?filterSearch=true&filter_vehicle=$type");
+	$folder = file_get_html("http://www.zimride.com/search?s=San+Jose%2C+CA&e=San+Francisco%2C+CA&date=11%2F05%2F12&filter_type=either&filter_frequency=one-time&filter_privacy=public&filter_vehicle=$type&program=&s_name=&s_full_text=&s_error_code=&s_address=&s_city=&s_state=&s_zip=&s_country=&s_lat=&s_lng=&s_location_key=&s_user_lat=&s_user_lng=&s_user_country=&e_name=&e_full_text=&e_error_code=&e_address=&e_city=&e_state=&e_zip=&e_country=&e_lat=&e_lng=&e_location_key=&e_user_lat=&e_user_lng=&e_user_country=");
 
-	// WORKING UP TO THIS POINT
-	// echo $folder takes you directly to website using the url
+	// CURRENT STATUS
+	// Scrap all data present on that url created
 
 	foreach ($folder->find('div[id=results]') as $e){
 		$main2 = array($e->childNodes(0)->outertext);
