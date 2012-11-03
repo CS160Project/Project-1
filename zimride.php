@@ -10,15 +10,13 @@
 
     $folder = file_get_html("http://www.zimride.com/search?filterSearch=true&filter_vehicle=$type");
 
-	foreach ($folder->find('div.results div.ride_list') as $e)
-	{
-		$main1 = $e->childNodes(0)->getAttribute('href');
-		echo $main1;
-		$main2 = $e->find('div[class=entry]',0)->find('div[class=price_box]',0)->find('div[class=seats]',0)->childNodes(0)->text();
-		echo $main2;
+	// WORKING UP TO THIS POINT
+	// echo $folder takes you directly to website using the url
 
-        $arr[] = array(     'listing' => $main2,
-        					'url' => $main1
+	foreach ($folder->find('div[id=results]') as $e){
+		$main2 = array($e->childNodes(0)->outertext);
+        $arr[] = array(
+        			     'info' => $main2,
                		  );
     }
 
@@ -69,7 +67,7 @@ td[id *="1"]{color:#F30;font-size:18px;font-stretch:semi-expanded;font-style:obl
                                   var urlList = "";
                                   $.each(data, function(i, item) {
                                          $("#div-my-tabl").append("<tr>");
-                                         $("#div-my-tabl").append("<td id=1>"+item.rate+"</td>");
+                                         $("#div-my-tabl").append("<td id=1>"+item.info+"</td>");
                                          $("#div-my-tabl").append("<br>");
 
                                          $("#div-my-tabl").append("</tr>");
