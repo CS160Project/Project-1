@@ -1,7 +1,26 @@
 <?php
     include('simple_html_dom.php');
+
+    $lOriginLocation = $_POST['originTextField'];
+    
+    $lOriginLocation = str_replace(', ', '%2C+', $lOriginLocation);
+    $lOriginLocation = str_replace(' ', '+', $lOriginLocation);
+
+    $lOriginLat = $_POST['originLatitudeTextField'];
+    $lOriginLng = $_POST['originLongitudeTextField'];
+
+    $lDestinationLocation = $_POST['destinationTextField'];
+    
+    $lDestinationLocation = str_replace(',', '%2C+', $lDestinationLocation);
+    $lDestinationLocation = str_replace(' ', '+', $lDestinationLocation);
+
+    $lDestinationLat = $_POST['destinationLatitudeTextField'];
+    $lDestinationLng = $_POST['destinationLongitudeTextField'];
+
+    $Search = 'http://ridejoy.com/rides/search?utf8=%E2%9C%93&type=ride_offer&origin=' . $lOriginLocation . '&origin_latitude=' . $lOriginLat . '&origin_longitude=' . $lOriginLng . '&destination=' . $lDestinationLocation . '&destination_latitude=' . $lDestinationLat . '&destination_longitude=' . $lDestinationLng . '&date=';
+    echo $Search;
     $articles = array();
-    getArticles('http://ridejoy.com/rides/search?utf8=%E2%9C%93&type=ride_offer&origin=&origin_latitude=&origin_longitude=&destination=Los+Angeles%2C+CA&destination_latitude=34.0522342&destination_longitude=-118.2436849&date=');
+    getArticles($Search);
 
 function getArticles($page) {
     global $articles, $descriptions;
