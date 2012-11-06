@@ -1,3 +1,4 @@
+<!--Feature 2 Scrap PHP File-->
 <?php
     include('simple_html_dom.php');
 
@@ -39,7 +40,7 @@ function getArticles($page) {
 	}  // foreach
     
     $response = $lResult;
-    $lFilePath = fopen('result.json', 'w');
+    $lFilePath = fopen('feature2_result.json', 'w');
     fwrite($lFilePath, json_encode($response));
     fclose($lFilePath);
 
