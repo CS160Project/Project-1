@@ -1,0 +1,146 @@
+<!--Feature 3 Unify the ouput-->
+<!--Created By: Thanh Au-->
+<!--Modified By: None -->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="utf-8" />
+	<link rel = "stylesheet" type="text/css" href = "css/reset.css"/>
+	<link rel = "stylesheet" type="text/css" href = "css/style.css"/>
+
+	<script src="jquery.js"></script>
+
+</head>
+<body>
+	
+<div id="search-panel">
+	<div id="search-again">
+		<!--Setting up form for input prameters-->
+        <form method="post" action="./feature2.php">
+            <p>Origin Location</p>
+             <!--The input for user to type in the origin location and associated with Google Map Autocomplete API-->
+            <input name ="originTextField" id="originTextField" type="text" size="50">
+             <!--Need two hidden fields to store the latitude and longitude for the user input location based on Google Map Autocomplete API-->
+            <input name ="originLatitudeTextField" id="originLatitudeTextField" type="hidden" size="50">
+            <input name ="originLongitudeTextField" id="originLongitudeTextField" type="hidden" size="50">
+            <p>Destination Location</p>
+            <!--The input for user to type in the destination location and associated with google autocomplete API-->
+            <input name ="destinationTextField" id="destinationTextField" type="text" size="50">
+            <!--Need two hidden fields to store the latitude and longitude for the user input location based on Google Map Autocomplete API-->
+            <input name ="destinationLatitudeTextField" id="destinationLatitudeTextField" type="hidden" size="50">
+            <input name ="destinationLongitudeTextField" id="destinationLongitudeTextField" type="hidden" size="50">
+            <input type="submit" value="Submit" onclick="">
+        </form>
+	</div>
+	
+	<!--Setting side bar contain google map-->
+	<div id="sidebar">
+			<div id="map">
+				<iframe src="https://maps.google.com/?ie=UTF8&amp;t=m&amp;ll=37.297016,-121.817413&amp;spn=0.382361,0.583649&amp;z=10&amp;output=embed"></iframe><br />
+			</div>
+	</div>
+	
+<div id="results">
+	<div class="ride_list">
+		<h3 class="headline first">
+			<span> Monday, November 5th</span>
+		</h3>
+		<a href="http://www.zimride.com/ride/share?ride=508221&searchPageID=1">
+			<div class="entry ">
+				<div class="passenger_box">
+					<p>
+					<span class="icon">
+						<img alt="Profile Picture" src="img/icon.png">
+					</span>
+					
+					<strong>Passenger</strong>
+					</p>
+				</div>
+			<div class="userpic">
+				
+				<img alt="Profile Picture" src="img/test.jpg">
+				<span class="passenger"></span>
+			</div>
+			
+			<div class="inner_content ">
+				<h3>
+					<span class="inner">
+					 Cupertino
+						<span class="trip_type one_way"> &rarr;</span>
+					San Francisco
+					</span>
+				</h3>
+			
+			</div>
+			</div>
+		</a>
+		<h3 class="headline first">
+			<span> Monday, November 6th</span>
+		</h3>
+		<a href="http://www.zimride.com/ride/share?ride=508221&searchPageID=1">
+			<div class="entry ">
+				<div class="passenger_box">
+					<p>
+					<span class="icon">
+						<img alt="Profile Picture" src="img/icon.png">
+					</span>
+					
+					<strong>Passenger</strong>
+					</p>
+				</div>
+			<div class="userpic">
+				
+				<img alt="Profile Picture" src="img/test.jpg">
+				<span class="passenger"></span>
+			</div>
+			
+			<div class="inner_content ">
+				<h3>
+					<span class="inner">
+					 Cupertino
+						<span class="trip_type one_way"> &rarr;</span>
+					San Francisco
+					</span>
+				</h3>
+			
+			</div>
+			</div>
+		</a>
+		<a href="http://www.zimride.com/ride/share?ride=508221&searchPageID=1">
+			<div class="entry ">
+				<div class="driver_box">
+					<p>
+					<span class="icon">
+						<img alt="Profile Picture" src="img/icon.png">
+					</span>
+					
+					<strong>Driver</strong>
+					</p>
+					<p>
+					<b>$80</b>
+					/ seat
+					</p>
+				</div>
+			<div class="userpic">
+				
+				<img alt="Profile Picture" src="img/test.jpg">
+				<span class="passenger"></span>
+			</div>
+			
+			<div class="inner_content ">
+				<h3>
+					<span class="inner">
+					 Cupertino
+						<span class="trip_type one_way"> &rarr;</span>
+					San Francisco
+					</span>
+				</h3>
+			
+			</div>
+			</div>
+		</a>
+	</div>
+</div>
+</div>
+</body>
+</html>
