@@ -159,7 +159,7 @@ div#filterandsorting
  #search-panel #results {
     border-right: 1px solid #CCCCCC;
 	padding-right: 85px;
-    padding-bottom: 40px;
+    //padding-bottom: 40px;
     position: relative;
     width: 600px;
 	float:right;
@@ -194,6 +194,15 @@ div#filterandsorting
 	overflow: hidden;
  }
  div.passenger_box
+ {
+	float: right;
+	display:inline-block;
+	height: 65px;
+    padding: 6px;
+    text-align: center;
+    width: 75px;
+ }
+ div.driver_box
  {
 	float: right;
 	display:inline-block;
