@@ -6,10 +6,33 @@
 
     $myFile = "File.json";
 
+	$lOriginLocation = $_POST['originTextField'];
+    
+    $lOriginLocation = str_replace(', ', '%2C+', $lOriginLocation);
+    $lOriginLocation = str_replace(' ', '+', $lOriginLocation);
+
+    $lOriginLat = $_POST['originLatitudeTextField'];
+    $lOriginLng = $_POST['originLongitudeTextField'];
+
+    $lDestinationLocation = $_POST['destinationTextField'];
+    
+    $lDestinationLocation = str_replace(',', '%2C+', $lDestinationLocation);
+    $lDestinationLocation = str_replace(' ', '+', $lDestinationLocation);
+
+    $lDestinationLat = $_POST['destinationLatitudeTextField'];
+    $lDestinationLng = $_POST['destinationLongitudeTextField'];
+
+
+
+
+
+
     // Retrieve the DOM from a given URL
 
-	$folder = file_get_html("http://www.zimride.com/search?s=San+Jose%2C+CA&e=San+Francisco%2C+CA&date=11%2F05%2F12&filter_type=either&filter_frequency=one-time&filter_privacy=public&filter_vehicle=$type&program=&s_name=&s_full_text=&s_error_code=&s_address=&s_city=&s_state=&s_zip=&s_country=&s_lat=&s_lng=&s_location_key=&s_user_lat=&s_user_lng=&s_user_country=&e_name=&e_full_text=&e_error_code=&e_address=&e_city=&e_state=&e_zip=&e_country=&e_lat=&e_lng=&e_location_key=&e_user_lat=&e_user_lng=&e_user_country=");
-
+	$folder = file_get_html('http://www.zimride.com/search?s=' . $lOriginLocation .'&e='. $lDestinationLocation . '&date=' . '&s_name='. $lOriginLocation .  '&s_full_text' .$lOriginLocation . '&s_error_code='.	'&s_address='.	$lOriginLocation. '&s_city' .$lOriginLocation.		'&s_zip='.	 '&s_country='.$lOriginLocation.	'&s_lat='. $lOriginLat. '&s_lng='. $lOriginLng .		'&s_location_key='. '&s_user_lat='. '&s_user_lng='. '&s_user_country='.'&e_name='.'$lDestinationLocation .'&e_full_text='.$lDestinationLocation.	'&e_error_code='. '&e_address='.	$lDestinationLocation.	  '&e_city='.	$lDestinationLocation.'&e_zip='.'&e_country='.	$lOriginLocation.	'&e_lat='.    $lDestinationLat .'&e_lng='	.$lDestinationLng. '&e_location_key='. '&e_user_lat='.	'&e_user_lng='. '&e_user_country=');
+	//																																	  San+Jose%2C+CA      &s_full_text   San+Jose%2C+CA%2C+USA&s_error_code=	&s_address=		San+Jose%2C+CA%2C+USA	&s_city=San+Jose&s_state=CA	 &s_zip=	  &s_country=	US					 &s_lat=37.3393857		 &s_lng=   -121.89495549999998	 &s_location_key=	&s_user_lat=&s_user_lng=&s_user_country=		    &e_name=    San+Francisco%2C+CA	   &e_full_text=  San+Francisco%2C+CA%2C+USA &e_error_code=	   &e_address=		San+Francisco%2C+CA%2C+USA&e_city=		San+Francisco&e_state=CA&e_zip=	 &e_country=	US					&e_lat=		  37.7749295		 &e_lng=	-122.41941550000001	&e_location_key=	&e_user_lat=	 &e_user_lng=	 &e_user_country=
+	
+	
 	// CURRENT STATUS
 	// Scrap all data present on that url created
 
