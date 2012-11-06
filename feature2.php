@@ -30,6 +30,7 @@
     $Search = 'http://ridejoy.com/rides/search?utf8=%E2%9C%93&type=ride_offer&origin=' . $lOriginLocation . '&origin_latitude=' . $lOriginLat . '&origin_longitude=' . $lOriginLng . '&destination=' . $lDestinationLocation . '&destination_latitude=' . $lDestinationLat . '&destination_longitude=' . $lDestinationLng . '&date=';
     // Print out the url for testing purpose
     echo $Search;
+    echo "<br/>";
     // Create array to store retrived object
     $articles = array();
     // Call the getArticles with the URL
@@ -58,22 +59,36 @@ function getArticles($page) {
 		$lOrigin = $post->find('div[class=clearfix route route_with_extra]',0) -> childNodes(0) -> find('div[class=origin]',0) ->innertext;
         // Retrive similar information for destination
         $lDestination = $post->find('div[class=clearfix route route_with_extra]',0) -> childNodes(0) -> find('div[class=destination]',0) -> innertext;
-        
         // Stored the retrived information and given them respect names in an object in the array
         $lResult[] = array('origin' => $lOrigin,
                            'destination' => $lDestination
                           );
+        // Print out the result for testing purpose
+        echo Origin;
+        echo $lOrigin;
+        echo "<br/>";
+        echo Destination;
+        echo $lDestination;
+        echo "<br/>";
+        echo "<br/>";
 	}  // foreach
     
-    // Store the result into response
-    $response = $lResult;
-    // Create a file stream based on parameters for written
-    $lFilePath = fopen('feature2_result.json', 'w');
-    // Encode the array with JSON format and write it into the created file
-    fwrite($lFilePath, json_encode($response));
-    // Close the file stream
-    fclose($lFilePath);
-    // Clear to erase the memory created for temp scrap page
+    // Print out no result message if there is no item in the result
+    if(count($items) == 0)
+    {
+        echo "Sorry, no result returned based on input"; 
+    }  // if
+    else{
+        // Store the result into response
+        $response = $lResult;
+        // Create a file stream based on parameters for written
+        $lFilePath = fopen('feature2_result.json', 'w');
+        // Encode the array with JSON format and write it into the created file
+        fwrite($lFilePath, json_encode($response));
+        // Close the file stream
+        fclose($lFilePath);
+        // Clear to erase the memory created for temp scrap page
+    }  // else
     $html -> clear();
 }
 ?>
