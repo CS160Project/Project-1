@@ -1,4 +1,6 @@
 <?php
+    
+    // Feature 5. Converts the amount from one currency to another currency 
     // Include the library
     include('simple_html_dom.php');
     
@@ -6,25 +8,25 @@
     $cur_from = $_POST['currency_from'];
     $cur_to = $_POST['currency_to'];
 	
-    //validates the amount entry
+    //validates the amount entry for empty string
     if(!$_POST['amount'])
     {
-        echo('Amount cannot be empty');
+        echo('<b>Error:</b> <span style="color:red;" />Amount cannot be empty</span>');
     }
     else
     //checks amount digits
     if(!is_numeric($amt))
     {
-       echo('Amount can only be numbers');
+       echo('<b>Error:</b> <span style="color:red;" />Amount can only be numbers</span>');
     }
     
     
-    $myFile = "File.json";
     
     // Retrieve the DOM from a given URL
     
     $folder = file_get_html("http://www.gocurrency.com/v2/dorate.php?inV=$amt&from=$cur_from&to=$cur_to&Calculate=Convert");
     
+    //returns the converted currencies along with unit exchange rates for each currencies
     foreach ($folder->find('div[id=converter_results]') as $e){
         $main2 = array($e->childNodes(0)->outertext);
         $arr2[] = array(
@@ -35,6 +37,7 @@
         
     $response = $arr2;
     
+    //writes the result to json file
     $fp = fopen('results.json', 'w');
     fwrite($fp, json_encode($response));
     fclose($fp);
@@ -45,6 +48,9 @@
 	echo $homepage;               
     
     ?>
+
+//outputs the result 
+//applies the CSS format to the output results 
 
 <!DOCTYPE html>
 <html>
@@ -66,7 +72,7 @@ outline-color:#090;
 color:#60C;
 }
 
-td[id *="1"]{color:#F30;font-size:18px;font-stretch:semi-expanded;font-style:oblique;}
+td[id *="1"]{color:#000;font-size:18px;font-stretch:semi-expanded;font-style:oblique;}
     </style>
     </head>
     <body id="div-my-tabl">
