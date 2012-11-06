@@ -1,0 +1,27 @@
+<!--
+    Feature 1: Optional Search Input - Vehicle Type
+    Displays a drop-down list consisting of choices:
+       car, bus, car & bus
+    The choice is used my feature1.php to update the URL
+       to scrap the required data.
+-->
+
+<html>
+ <body>
+   <h2 id="title">Vehicle Type Selector</h2>
+
+   <form action ="feature1.php" method="post">
+
+    <select name ="vehicleType">
+        <option value = "both">car & bus</option>
+        <option value = "car">car</option>
+        <option value = "bus">bus</option>
+        <!--<option value = "taxi">taxi</option>
+        <option value = "any">any</option>-->
+    </select>
+
+    <input type="submit" name="submit" value="Search"><br />
+
+    </form>
+  </body>
+</html>
