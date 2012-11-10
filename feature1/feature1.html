@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!--
+    Feature 1: Optional Search Input - Vehicle Type & Passager Type
+    Displays a drop-down list consisting of choices:
+       car, bus, car & bus
+    The choice is used my feature1.php to update the URL
+       to scrap the required data.
+
+    Updated with passenger/driver/both selection
+-->
+
+<html>
+ <body>
+   <h2 id="title">Vehicle Type Selector</h2>
+
+<form action ="feature1.php" method="post">This is set to search from San Jose to San Francisco<br />
+    <select name ="vehicleType">
+        <option value = "both">car & bus</option>
+        <option value = "car">car</option>
+        <option value = "bus">bus</option>
+    </select>
+
+    <div>
+        <select name ="passengerStatus">
+            <option value = "need">Passenger</option>
+            <option value = "offer">Driver</option>
+            <option value = "either">Both</option>
+        </select>
+    </div>
+
+    <input type="submit" name="submit" value="Search"><br />
+</form>
+</body>
+</html>
