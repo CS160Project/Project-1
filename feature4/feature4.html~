@@ -17,7 +17,7 @@
 <body>
 <h1 class=title>Feature 4 - Google Map</h1>
 
-<div id="mainframe" style="width: 1250px; height: 600px;">
+<div id="mainframe" style="width: 1250px; height: 500px;">
 	<div id="map_canvas" style="float:left; width: 500px; height: 500px;"></div>
 	<div id="z" style="float:right; width: 500px; height: 500px; border:1px solid;">
 		<iframe name="output" scrolling="yes" frameborder="yes" width="500px" height="500px" style="font-size: 6pt;">iframe not supported!</iframe>

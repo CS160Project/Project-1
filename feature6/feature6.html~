@@ -4,7 +4,7 @@
 <!--Modified By: None               -->
 <html>
 <head>
-<script src="jquery.js"></script>
+<script src="../jquery.js"></script>
 <script>
 jQuery.fn.sort = function()
 {
@@ -53,7 +53,7 @@ function sortDistanceAscending(pFObject, pSObject)
 
 function loadJSON()
 {
-    $.getJSON("http://localhost/result.html", function(json) { filter(json);});
+    $.getJSON("result.html", function(json) { filter(json);});
 }  // loadJSON
 
 function filter(pData)

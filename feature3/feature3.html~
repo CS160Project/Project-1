@@ -10,11 +10,9 @@
 	<link rel = "stylesheet" type="text/css" href = "css/reset.css"/>
 	<link rel = "stylesheet" type="text/css" href = "css/style.css"/>
 
-	<script src="jquery.js"></script>
-
 </head>
 <body>
-
+<h1 class=title>Feature 3 - Unified Output</h1>
 <div id="search-panel">
 	<div id="search-again">
 		<!--Setting up form for input prameters-->

@@ -1,5 +1,5 @@
 <?php
-	include("simple_html_dom.php");
+	include("../simple_html_dom.php");
 	//echo "Hi";
 	function isZipcode($str) {
 		if (strlen($str) == 5) {

@@ -65,7 +65,7 @@ function getArticles($page) {
                            'destination' => $lDestination
                           );
         // Print out the result for testing purpose
-        echo "<br />Displaying Origin and Destination from the site scrapping<br />";
+        echo "<br />Displaying Origin and Destination from the site result<br />";
 	echo "Origin:" ;
         echo $lOrigin;
         echo "<br/>";

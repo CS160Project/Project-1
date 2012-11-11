@@ -3,7 +3,7 @@
 <!--Modified By: None               -->
 <?php
     // Include the necessary simple_html_dom.php to use its functions
-    include('simple_html_dom.php');
+    include('../simple_html_dom.php');
 
     // Retrive the text in the origin text field from the html page post events
     $lOriginLocation = $_POST['originTextField'];

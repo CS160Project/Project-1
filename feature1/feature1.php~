@@ -15,7 +15,7 @@
 	// Scrap all the car sharing postings
 	foreach ($folder->find('div[id=results]') as $e) {
 		$main2 = $e->childNodes(0)->outertext;
-		echo $main2;
+		//echo $main2;
         	$arr[] = array(
         			     'info' => $main2,
                		  );

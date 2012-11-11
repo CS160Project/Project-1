@@ -47,7 +47,7 @@
 	$eword2 = $eword[1];
 
 	//echo sizeof($sword2)." ".sizeof($eword2) . "<br />";
-	if (isZipcode($start) && isZipcode($end)) {
+	if (isZipcode($originTextField) && isZipcode($destinationTextField)) {
 		$data = file_get_contents("http://ridejoy.com/rides/search?utf8=%E2%9C%93&origin=$loc1%2C+$sword2&origin_latitude=37.3393857&origin_longitude=-121.89495549999998&destination=$loc2%2C+$eword2&destination_latitude=37.7749295&destination_longitude=-122.41941550000001&date=");
 	}
 	else if (sizeof($sterm) == 2 && sizeof($eterm) == 2) {

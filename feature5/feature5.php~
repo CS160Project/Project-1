@@ -74,7 +74,7 @@ td[id *="1"]{color:#000;font-size:18px;font-stretch:semi-expanded;font-style:obl
     </style>
     </head>
     <body id="div-my-tabl">
-    <div id="div-my-tabl"></div>
+    <div id="div-my-tabl">This is only a demo. When unified scraping is implemented, a dynamic version will replace this.</div>
     
     <script>
     $("document").ready(function() {

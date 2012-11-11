@@ -2,7 +2,7 @@
 	// Feature 1: Optional Search Input - Vehicle Type
 
     // Include the library
-    include('simple_html_dom.php');
+    include('../simple_html_dom.php');
 
 	// Obtain the user's vehicle type choice from the feature1.html file
     $type= $_POST['vehicleType'];

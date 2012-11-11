@@ -2,7 +2,7 @@
     
     // Feature 5. Converts the amount from one currency to another currency 
     // Include the library
-    include('simple_html_dom.php');
+    include('../simple_html_dom.php');
     
     $amt= $_POST['amount'];
     $cur_from = $_POST['currency_from'];
