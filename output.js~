@@ -31,7 +31,7 @@ function processData(data) {
 				var tmp = $(this).attr("id");
 				map.panTo(markers[tmp.substring(1)].getPosition());
 				infowindow = new google.maps.InfoWindow({
-					content: "<span width=20px height=20px>"+$.trim(markers[tmp.substring(1)].getTitle())+"</span><br /><span width=20px height=20px>"+$.trim(addresses[tmp.substring(1)])+"</span>"
+					content: "<span width=20px height=20px>"+$.trim(markers[tmp.substring(1)].getTitle())+"</span><br /><span width=20px height=20px>"+$.trim(addresses[tmp.substring(1)])+"</span>
 				});
 
 				infowindow.open(map, markers[tmp.substring(1)]);

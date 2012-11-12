@@ -17,7 +17,7 @@
 
 <div id="mainframe" style="width:1250px; height:600px;">
 	<div id="map_canvas" style="height:600px;"></div>
-	<div id="results">
+	<div id="results" style="">
 		<!-- <h3 class="headline first">
 			<span> Monday, November 5th</span>
 		</h3> -->		
