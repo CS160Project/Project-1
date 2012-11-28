@@ -14,10 +14,13 @@ var bounds = new google.maps.LatLngBounds();
 $("document").ready(function() {
 	$.getJSON("results.json", function(data) {
 		processData(data);
+		showMap();
 	});
 });
 
 function processData(data) {
+	$("#results").empty();
+
 	$.each(data, function(i, item) {
 		createCell(i, item);
 	});
@@ -42,12 +45,6 @@ function processData(data) {
 			}
 		);
 	}
-
-	showMap();
-	// This is to slow down the querying to Google.com
-	geoIndex = 0;
-	geoTimer = setInterval(function(){ geocodeAddress();}, 1000);
-	//alert("markers length: "+markers.length);
 }
 
 function createCell(i, item) {
@@ -59,11 +56,11 @@ function createCell(i, item) {
               					cell += "<img class=\"icon\" alt=\"Travel Status\" src=\""+item.traveltypeicon+"\"/>";
 					cell += "</span><br />";
 					cell += "<strong class=\"traveltext\">"+item.traveltype+"</strong>";
-					cell += "<span class=\"price\">"+item.price+"/seat</span>";
+					cell += "<span class=\"price\">"+item.price+" "+item.currencytype+"/seat</span>";
 				cell += "</p>";
 			cell += "</div>";
 			cell += "<div class=\"userpic\">";
-				cell += "<img alt=\"Profile Picture\" src=\""+item.image+"\"/>";
+				cell += "<img class=\"profile\" alt=\"Profile Picture\" src=\""+item.image+"\"/>";
 				cell += "<span class=\"passenger\"></span>";
 			cell += "</div>";
 			cell += "<div class=\"inner_content \">";
@@ -135,6 +132,11 @@ function showMap() {
 	//types: ['establishment']  // Comment out if we need to get both bussiness and address
 	};
 	autocomplete = new google.maps.places.Autocomplete(input, autoOptions);
+
+	// This is to slow down the querying to Google.com
+	geoIndex = 0;
+	geoTimer = setInterval(function(){ geocodeAddress();}, 1000);
+	//alert("markers length: "+markers.length);
 }
 
 function codeAddress(index) {
@@ -197,4 +199,66 @@ function geocodeAddress() {
 		//var markerCluster = new MarkerClusterer(map, markers);
 		alert("Done placing markers");
 	}
+}
+
+jQuery.fn.sort = function() {
+	return this.pushStack([].sort.apply(this, arguments), []);
+};
+
+function sortPriceDescending(pFObject, pSObject) {
+	if (parseFloat(pFObject.price) == parseFloat(pSObject.price) || pFObject == pSObject) {
+		return 0;
+	}
+	else if (pFObject.price == "NA") {
+		return 1;
+	}
+	else if (pSObject.price == "NA") {
+		return -1;
+	}
+	else {
+		return parseFloat(pFObject.price) > parseFloat(pSObject.price) ? -1 : 1;
+	}
+};  // sortPriceDescending
+
+function sortPriceAscending(pFObject, pSObject) {	
+	if(parseFloat(pFObject.price) == parseFloat(pSObject.price)  || pFObject == pSObject) {
+		return 0;
+	}
+	else if (pFObject.price == "NA") {
+		return -1;
+	}
+	else if (pSObject.price == "NA") {
+		return 1;
+	}
+	else {
+		return parseFloat(pFObject.price) > parseFloat(pSObject.price) ? 1 : -1;
+	}
+};  // sortPriceAscending
+
+function loadJSON() {
+	$.getJSON("results.json", function(json) {filter(json);});
+}  // loadJSON
+
+function filter(pData) {
+	var lJsonObject = pData;
+	
+	var lSortOption = document.getElementById("cmbSort").value;
+
+	var lObject = $(lJsonObject).sort(sortPriceAscending);
+	
+	switch(lSortOption)
+	{
+		case "Default Price -- Ascending":
+		lObject = $(lJsonObject).sort(sortPriceAscending);
+		break;
+		
+		case "Price -- Descending":
+		lObject = $(lJsonObject).sort(sortPriceDescending);
+		break;
+
+		default:
+		break;
+	}  // switch
+	
+	processData(lObject);
 }

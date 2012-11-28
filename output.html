@@ -9,13 +9,18 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places" type="text/javascript"></script>
 <!-- <script src="output.js" type="text/javascript"></script> -->
 <script src="output.js" type="text/javascript"></script>
-<script src="markerclustere.js" type="text/javascript"></script>
+<!-- <script src="markerclustere.js" type="text/javascript"></script> -->
 <title>Danny Truong - CS 160</title>
 </head>
 <body>
 <h1 class=title>Project</h1>
-
-<div id="mainframe" style="width:1250px; height:600px;">
+<div id="selection">
+	<select id ="cmbSort" onChange ="loadJSON()">
+	<option>Default Price -- Ascending</option>
+	<option>Price -- Descending</option>
+	</select>
+</div>
+<div id="mainframe">
 	<div id="map_canvas" style="height:600px;"></div>
 	<div id="results">
 		<!-- <h3 class="headline first">
@@ -23,6 +28,6 @@
 		</h3> -->		
 	</div>
 </div>
-<a href="pindex.html"><span>Redo Search</span></a>
+<a id="redo" href="pindex.html"><span>Redo Search</span></a>
 </body>
 </html>

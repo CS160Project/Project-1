@@ -52,7 +52,9 @@
 	}
 
 	$vehicleType = $_POST['vehicleType'];
-	
+
+	$cur_to = $_POST['currency_to'];
+
 	$start = $_POST['originTextField'];
 	$end = $_POST['destinationTextField'];
 	//echo $start . $end;
@@ -82,16 +84,15 @@
 				$loc1 = str_replace(' ', '+', trim($sterm[0]));
     				$loc2 = str_replace(' ', '+', trim($eterm[0]));
 				//echo $loc1." ".$loc2."<br />".$travelStatus."<br />".$vehicleType."<br />";
-				//echo "http://www.zimride.com/search?s=$loc1%2C+$sword2&e=$loc2%2C+$eword2&date=$month%2F$day%2F$year&filter_type=$travelStatus&filter_frequency=one-time&filter_privacy=public&filter_vehicle=$vehicleType<br />";
-				//$zimride = file_get_html("http://www.zimride.com/search?s=$loc1%2C+$sstate&e=$loc2%2C+$estate&date=$month%2F$day%2F$year&filter_type=$zrTravelStatus&filter_frequency=one-time&filter_privacy=public&filter_vehicle=$vehicleType");
-				$zimride = file_get_html("http://www.zimride.com/search?s=Los+Angeles%2C+CA&e=San+Diego%2C+CA&date=11%2F11%2F12&filter_type=&filter_frequency=one-time&filter_privacy=public&filter_vehicle=&program=&s_name=&s_full_text=&s_error_code=&s_address=&s_city=&s_state=&s_zip=&s_country=&s_lat=&s_lng=&s_location_key=&s_user_lat=&s_user_lng=&s_user_country=&e_name=San+Diego%2C+CA&e_full_text=San+Diego%2C+CA%2C+USA&e_error_code=&e_address=San+Diego%2C+CA%2C+USA&e_city=San+Diego&e_state=CA&e_zip=&e_country=US&e_lat=32.7153292&e_lng=-117.15725509999999&e_location_key=&e_user_lat=&e_user_lng=&e_user_country=");
-http://www.zimride.com/search?s=Los+Angeles%2C+CA&e=San+Leandro%2C+CA&date=11%2F11%2F2012&s_name=Los+Angeles%2C+CA&s_full_text=Los+Angeles%2C+CA%2C+USA&s_error_code=&s_address=Los+Angeles%2C+CA%2C+USA&s_city=Los+Angeles&s_state=CA&s_zip=&s_country=US&s_lat=34.0522342&s_lng=-118.2436849&s_location_key=&s_user_lat=&s_user_lng=&s_user_country=&e_name=San+Leandro%2C+CA&e_full_text=San+Leandro%2C+CA%2C+USA&e_error_code=&e_address=San+Leandro%2C+CA%2C+USA&e_city=San+Leandro&e_state=CA&e_zip=&e_country=US&e_lat=37.7249296&e_lng=-122.1560768&e_location_key=&e_user_lat=&e_user_lng=&e_user_country=
-				//echo "http://ridejoy.com/rides/search?utf8=%E2%9C%93&origin=San+Francisco%2C+CA&origin_latitude=37.7749295&origin_longitude=-122.41941550000001&destination=San+Jose%2C+CA&destination_latitude=37.3393857&destination_longitude=-121.89495549999998&date=11%2F07%2F2012";
-				//$ridejoy = file_get_html("http://ridejoy.com/rides/search?utf8=%E2%9C%93&type=$rjTravelStatus&origin=$start&origin_latitude=$lOriginLat&origin_longitude=$lOriginLng&destination=$end&destination_latitude=$lDestinationLat&destination_longitude=$lDestinationLng&date=$month%2F$day%2F$year");
-				$ridejoy = file_get_html("http://ridejoy.com/rides/search?utf8=%E2%9C%93&origin=Los+Angeles%2C+CA&origin_latitude=34.0522342&origin_longitude=-118.2436849&destination=San+Diego%2C+CA&destination_latitude=32.7153292&destination_longitude=-117.15725509999999&date=");
+				$zimride = file_get_html("http://www.zimride.com/search?s=$loc1%2C+$sstate&e=$loc2%2C+$estate&date=$month%2F$day%2F$year&filter_type=$zrTravelStatus&filter_frequency=one-time&filter_privacy=public&filter_vehicle=$vehicleType");
+				//$zimride = file_get_html("http://www.zimride.com/search?s=Los+Angeles%2C+CA&e=San+Diego%2C+CA&date=11%2F28%2F12&filter_type=&filter_frequency=one-time&filter_privacy=public&filter_vehicle=&program=&s_name=&s_full_text=&s_error_code=&s_address=&s_city=&s_state=&s_zip=&s_country=&s_lat=&s_lng=&s_location_key=&s_user_lat=&s_user_lng=&s_user_country=&e_name=San+Diego%2C+CA&e_full_text=San+Diego%2C+CA%2C+USA&e_error_code=&e_address=San+Diego%2C+CA%2C+USA&e_city=San+Diego&e_state=CA&e_zip=&e_country=US&e_lat=32.7153292&e_lng=-117.15725509999999&e_location_key=&e_user_lat=&e_user_lng=&e_user_country=");
+				$ridejoy = file_get_html("http://ridejoy.com/rides/search?utf8=%E2%9C%93&type=$rjTravelStatus&origin=$start&origin_latitude=$lOriginLat&origin_longitude=$lOriginLng&destination=$end&destination_latitude=$lDestinationLat&destination_longitude=$lDestinationLng&date=$month%2F$day%2F$year");
+				//$ridejoy = file_get_html("http://ridejoy.com/rides/search?utf8=%E2%9C%93&origin=Los+Angeles%2C+CA&origin_latitude=34.0522342&origin_longitude=-118.2436849&destination=San+Diego%2C+CA&destination_latitude=32.7153292&destination_longitude=-117.15725509999999&date=");
 				}
 			else {
-				echo "Not a valid 2-letter State abbreviation: " . $sword2[1] . " and " . $eword2[1];
+				$tmp1 = $sword2[1];
+				$tmp2 = $eword2[1];
+				echo "<script type=\"text/javascript\">window.alert(\"Not a valid 2-letter State abbreviation: $tmp1 and $tmp2\")</script>";;
 			}
 		}
 	}
@@ -105,10 +106,13 @@ http://www.zimride.com/search?s=Los+Angeles%2C+CA&e=San+Leandro%2C+CA&date=11%2F
 		echo "0";
 	}*/
 	
-	$temp = $zimride->find('span[class=showing]');
-	echo $temp[0]->childNodes(0)->text()." and ";
-	$temp = $ridejoy->find('div[class=search_results_explanation]');
-	echo $temp[0]->childNodes(0)->text()."<br />";
+	$temp1 = $zimride->find('span[class=showing]');
+	$temp2 = $ridejoy->find('div[class=search_results_explanation]');
+	
+	$str = $temp1[0]->childNodes(0)->text()." and ".$temp2[0]->childNodes(0)->text();
+	//echo $str;
+
+	echo "<script type=\"text/javascript\">window.alert(\"$str\")</script>";
 
 	/*$zrTag = $zimride->find('span[class=current_page]');
 	$zrCurrentTag = $tag[0];
@@ -142,7 +146,7 @@ http://www.zimride.com/search?s=Los+Angeles%2C+CA&e=San+Leandro%2C+CA&date=11%2F
 			}
 			else {
 				$main11 = "NA";
-				echo "Error: no trip type";
+				echo "<script type=\"text/javascript\">window.alert(\"Error: no trip type\")</script>";
 			}
 			//echo $main11."<br />";			
 			$temp = $e->find('span[class=inner]',0)->innertext;
@@ -153,7 +157,7 @@ http://www.zimride.com/search?s=Los+Angeles%2C+CA&e=San+Leandro%2C+CA&date=11%2F
 				//echo $match[1]."<br />";
 			}
 			else {
-				echo "Failed<br />";
+				echo "<script type=\"text/javascript\">window.alert(\"Failed\")</script>";
 			}
 		
 			$regex = '/span>(.*)/';
@@ -162,7 +166,7 @@ http://www.zimride.com/search?s=Los+Angeles%2C+CA&e=San+Leandro%2C+CA&date=11%2F
 				//echo $match[1]."<br />";
 			}
 			else {
-				echo "Failed<br />";
+				echo "<script type=\"text/javascript\">window.alert(\"Failed\")</script>";
 			}
 			//echo $main3.", ".$main4."<br />";
 			$temp = $e->find('h4',0)->innertext;
@@ -182,7 +186,24 @@ http://www.zimride.com/search?s=Los+Angeles%2C+CA&e=San+Leandro%2C+CA&date=11%2F
 			//echo $zrTravelStatus."<br />";
 			if ($e->childNodes(0)->getAttribute('class') === "price_box") {
 				//echo "inside offer";
-				$main8 = trim($e->find('b',0)->text());
+				$main8 = substr(trim($e->find('b',0)->text()), 1);
+				//echo $main8.$cur_to;
+				if ($cur_to !== "USD") {
+					$currency = file_get_html("http://www.gocurrency.com/v2/dorate.php?inV=$main8&from=USD&to=$cur_to&Calculate=Convert");
+					$c = $currency->find('div[id=converter_results]');
+					$temp = $c[0]->childNodes(0)->childNodes(0)->childNodes(0)->innertext;
+						
+					$regex = '/=(.+?)\s/';
+			
+					if (preg_match($regex,$temp,$match)) {
+						$main8 = trim($match[1]);
+						//echo $match[1]."<br />";
+					}
+					else {
+						echo "<script type=\"text/javascript\">window.alert(\"Failed\")</script>";
+					}	
+					//echo $main8."; ";
+				}
 				$main9 = $e->find('span[class=count]',0)->text();
 				$main10 = "Driver";	
 			}
@@ -193,7 +214,7 @@ http://www.zimride.com/search?s=Los+Angeles%2C+CA&e=San+Leandro%2C+CA&date=11%2F
 				$main10 = "Passenger";
 			}
 			else {
-				echo "Error: No passenger or driver";
+				echo "<script type=\"text/javascript\">window.alert(\"Error: No passenger or driver\")</script>";
 			}
 			//echo $main8.", ".$main9."<br />";			
 			$arr[] = array(
@@ -209,7 +230,8 @@ http://www.zimride.com/search?s=Los+Angeles%2C+CA&e=San+Leandro%2C+CA&date=11%2F
 				'departuredate' => $main7,
 				'price' => $main8,
 				'seat' => $main9,
-				'triptype' => $main11
+				'triptype' => $main11,
+				'currencytype' => $cur_to
 			);
 		}
 		
@@ -253,7 +275,24 @@ http://www.zimride.com/search?s=Los+Angeles%2C+CA&e=San+Leandro%2C+CA&date=11%2F
 			//echo $zrTravelStatus."<br />";
 			if ($e->find('div[class="photo ride_icon"]',0)->childNodes(0)->getAttribute('alt') == "Driver_icon_color_50x50") {
 				//echo "inside offer";
-				$main8 = trim($e->find('div[class=seat_count]',0)->text());
+				$main8 = substr(trim($e->find('div[class=seat_count]',0)->text()), 1);
+				if ($cur_to !== "USD") {
+					$currency = file_get_html("http://www.gocurrency.com/v2/dorate.php?inV=$main8&from=USD&to=$cur_to&Calculate=Convert");
+					$c = $currency->find('div[id=converter_results]');
+					$temp = $c[0]->childNodes(0)->childNodes(0)->childNodes(0)->innertext;
+						
+					$regex = '/=(.+?)\s/';
+			
+					if (preg_match($regex,$temp,$match)) {
+						$main8 = trim($match[1]);
+						//echo $match[1]."<br />";
+					}
+					else {
+						echo "<script type=\"text/javascript\">window.alert(\"Failed\")</script>";
+					}	
+					//echo $main8."; ";
+				}
+
 				$main9 = "NA";
 				$main10 = "Driver";	
 			}
@@ -264,7 +303,7 @@ http://www.zimride.com/search?s=Los+Angeles%2C+CA&e=San+Leandro%2C+CA&date=11%2F
 				$main10 = "Passenger";
 			}
 			else {
-				echo "Error: No passenger or driver";
+				echo "<script type=\"text/javascript\">window.alert(\"Error: No passenger or driver\")</script>";
 			}
 			//echo $main8.", ".$main9."<br />";			
 			$arr[] = array(
@@ -280,7 +319,8 @@ http://www.zimride.com/search?s=Los+Angeles%2C+CA&e=San+Leandro%2C+CA&date=11%2F
 				'departuredate' => $main7,
 				'price' => $main8,
 				'seat' => $main9,
-				'triptype' => $main11
+				'triptype' => $main11,
+				'currencytype' => $cur_to
 			);
 		}
 		/*$zrCurrentTag = $zrCurrentTag->next_sibling();
@@ -291,18 +331,18 @@ http://www.zimride.com/search?s=Los+Angeles%2C+CA&e=San+Leandro%2C+CA&date=11%2F
 	$filename = 'results.json';
 
 	if (($file = fopen($filename, 'w')) === FALSE) {
-		echo "Cannot open file ($filename)";
+		echo "<script type=\"text/javascript\">window.alert(\"Cannot open file: $filename\")</script>";
 		exit;
 	}
 
 	if (fwrite($file, json_encode($arr)) === FALSE) {
-		echo "Cannot write to file ($filename)";
+		echo "<script type=\"text/javascript\">window.alert(\"Cannot write to file: $filename\")</script>";
 		exit;
 	}
     	
 	fclose($file);
 
-	echo "$filename successfully created";
+	echo "<script type=\"text/javascript\">window.alert(\"$filename successfully created\")</script>";
 
 	$zimride->clear();
 	$ridejoy->clear();

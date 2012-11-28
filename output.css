@@ -30,6 +30,16 @@ body {
 	overflow:scroll;
 }
 
+#mainframe {
+	width:1250px;
+	height:600px;
+}
+
+#selection {
+	width:1250px;
+	height:100px;
+}
+
 h3 {
 	font-size: 15px;
 	font-weight: 500;
@@ -93,6 +103,11 @@ span.price {
 img.icon {
 	height: 20px;
 	width: 20px;
+}
+
+img.profile {
+	height: 80px;
+	width: 80px;
 }
 
 strong.traveltext {
