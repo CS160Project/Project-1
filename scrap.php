@@ -149,7 +149,7 @@
 				$main3 = trim($match[1]);
 			}
 			else {
-				echo "<script type=\"text/javascript\">window.alert(\"Failed\")</script>";
+				echo "<script type=\"text/javascript\">window.alert(\"Zimride from regex failed\")</script>";
 			}
 		
 			$regex = '/span>(.*)/';
@@ -157,7 +157,7 @@
 				$main4 = trim($match[1]);
 			}
 			else {
-				echo "<script type=\"text/javascript\">window.alert(\"Failed\")</script>";
+				echo "<script type=\"text/javascript\">window.alert(\"Zimride to regex failed\")</script>";
 			}
 
 			$temp = $e->find('h4',0)->innertext;
@@ -176,18 +176,19 @@
 			if ($e->childNodes(0)->getAttribute('class') === "price_box") {
 				$main8 = substr(trim($e->find('b',0)->text()), 1);
 
+				// Converting currency
 				if ($cur_to !== "USD") {
 					$currency = file_get_html("http://www.gocurrency.com/v2/dorate.php?inV=$main8&from=USD&to=$cur_to&Calculate=Convert");
 					$c = $currency->find('div[id=converter_results]');
 					$temp = $c[0]->childNodes(0)->childNodes(0)->childNodes(0)->innertext;
-						
+
 					$regex = '/=(.+?)\s/';
 			
 					if (preg_match($regex,$temp,$match)) {
 						$main8 = trim($match[1]);
 					}
 					else {
-						echo "<script type=\"text/javascript\">window.alert(\"Failed\")</script>";
+						echo "<script type=\"text/javascript\">window.alert(\"Zimride converter price regex failed\")</script>";
 					}	
 				}
 
@@ -245,6 +246,8 @@
 			
 			if ($e->find('div[class="photo ride_icon"]',0)->childNodes(0)->getAttribute('alt') == "Driver_icon_color_50x50") {
 				$main8 = substr(trim($e->find('div[class=seat_count]',0)->text()), 1);
+				
+				// Converting currency
 				if ($cur_to !== "USD") {
 					$currency = file_get_html("http://www.gocurrency.com/v2/dorate.php?inV=$main8&from=USD&to=$cur_to&Calculate=Convert");
 					$c = $currency->find('div[id=converter_results]');
@@ -256,7 +259,7 @@
 						$main8 = trim($match[1]);
 					}
 					else {
-						echo "<script type=\"text/javascript\">window.alert(\"Failed\")</script>";
+						echo "<script type=\"text/javascript\">window.alert(\"Ridejoy Converter price regex failed\")</script>";
 					}	
 				}
 

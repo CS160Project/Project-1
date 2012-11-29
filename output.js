@@ -85,12 +85,12 @@ function createCell(i, item) {
 
 function showMap() {
 	directionsDisplay = new google.maps.DirectionsRenderer();
-	var sj = new google.maps.LatLng(37.3041, -121.8727);		
+	currentPosition = new google.maps.LatLng(37.3041, -121.8727);		
 	geocoder = new google.maps.Geocoder();
 	
 	var mapOptions = {
 		zoom: 8,
-		center: sj,
+		center: currentPosition,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 
@@ -98,19 +98,19 @@ function showMap() {
 
 	directionsDisplay.setMap(map);
 		
-	if(navigator.geolocation) {
+	/*if(navigator.geolocation) {
 		// timeout at 60000 milliseconds (60 seconds)
 		var options = {timeout:60000};
 		navigator.geolocation.getCurrentPosition(function (position) {
 			currentPosition = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
 			map.setCenter(currentPosition);
 
-			/*google.maps.event.addListener(map, "center_changed", function() {
+			google.maps.event.addListener(map, "center_changed", function() {
 			// 3 seconds after the center of the map has changed, pan back to the marker.
 				window.setTimeout(function() {
 				map.panTo(marker.getPosition());
 				}, 3000);
-			});*/
+			});
 		}, 
 		function (err) {
 			if(err.code == 1) {
@@ -126,7 +126,7 @@ function showMap() {
 	}
 	else {
 		alert("Sorry, browser does not support geolocation!");
-	}
+	}*/
 
 	var input = document.getElementById("address");
 	var autoOptions = {
