@@ -89,8 +89,8 @@
 				
 				$zimride = file_get_html("http://www.zimride.com/search?s=$loc1%2C+$sstate&e=$loc2%2C+$estate&date=$month%2F$day%2F$year&filter_type=$zrTravelStatus&filter_frequency=one-time&filter_privacy=public&filter_vehicle=$vehicleType");
 				//$zimride = file_get_html("http://www.zimride.com/search?s=Los+Angeles%2C+CA&e=San+Diego%2C+CA&date=11%2F28%2F12&filter_type=&filter_frequency=one-time&filter_privacy=public&filter_vehicle=&program=&s_name=&s_full_text=&s_error_code=&s_address=&s_city=&s_state=&s_zip=&s_country=&s_lat=&s_lng=&s_location_key=&s_user_lat=&s_user_lng=&s_user_country=&e_name=San+Diego%2C+CA&e_full_text=San+Diego%2C+CA%2C+USA&e_error_code=&e_address=San+Diego%2C+CA%2C+USA&e_city=San+Diego&e_state=CA&e_zip=&e_country=US&e_lat=32.7153292&e_lng=-117.15725509999999&e_location_key=&e_user_lat=&e_user_lng=&e_user_country=");
-				$ridejoy = file_get_html("http://ridejoy.com/rides/search?utf8=%E2%9C%93&type=$rjTravelStatus&origin=$start&origin_latitude=$lOriginLat&origin_longitude=$lOriginLng&destination=$end&destination_latitude=$lDestinationLat&destination_longitude=$lDestinationLng&date=$month%2F$day%2F$year");
-				//$ridejoy = file_get_html("http://ridejoy.com/rides/search?utf8=%E2%9C%93&origin=Los+Angeles%2C+CA&origin_latitude=34.0522342&origin_longitude=-118.2436849&destination=San+Diego%2C+CA&destination_latitude=32.7153292&destination_longitude=-117.15725509999999&date=");
+				$ridejoy = file_get_html("http://ridejoy.com/rides/search?utf8=%E2%9C%93&type=$rjTravelStatus&origin=$loc1%2C+$sstate&origin_latitude=$lOriginLat&origin_longitude=$lOriginLng&destination=$loc2%2C+$estate&destination_latitude=$lDestinationLat&destination_longitude=$lDestinationLng");
+				//$ridejoy = file_get_html("http://ridejoy.com/rides/search?utf8=%E2%9C%93&type=$rjTravelStatus&origin=$loc1%2C+$sstate&origin_latitude=$lOriginLat&origin_longitude=$lOriginLng&destination=$loc2%2C+$estate&destination_latitude=$lDestinationLat&destination_longitude=$lDestinationLng&date=$month%2F$day%2F$year");
 				}
 			else {
 				$tmp1 = $sword2[1];
@@ -101,12 +101,12 @@
 	}
 	
 	// Getting the total results from Zimride and Ridejoy (testing purposes)
-	/* $temp1 = $zimride->find('span[class=showing]');
+	$temp1 = $zimride->find('span[class=showing]');
 	$temp2 = $ridejoy->find('div[class=search_results_explanation]');
 	
 	$str = $temp1[0]->childNodes(0)->text()." and ".$temp2[0]->childNodes(0)->text();
 
-	echo "<script type=\"text/javascript\">window.alert(\"$str\")</script>"; */
+	echo "<script type=\"text/javascript\">window.alert(\"$str\")</script>";
 
 	// Multiple result pages scrapping method (not complete)
 	/*$zrTag = $zimride->find('span[class=current_page]');
