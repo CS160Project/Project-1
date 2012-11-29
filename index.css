@@ -1,0 +1,62 @@
+/*
+** Cascade Style Sheet for Index HTML
+*/
+
+html {
+	height:100%;
+}
+
+body {
+	position:relative;
+	height:100%;
+	width:100%;
+	margin:0;
+	padding:0;
+}
+
+/* Logo Picture */
+#logo {
+	display:block;
+	margin-right:auto;
+	margin-left:auto;
+}
+
+#searchbutton {
+	margin-right:auto;
+	margin-left:auto;
+	width:5%;
+	height:30px;
+}
+
+/* Radio Button */
+#buttonselection {
+	position:relative;
+	height:60px;
+	width:20%;
+	margin-right:auto;
+	margin-left:auto;
+}
+
+#locationselection {
+	position:relative;
+	height:100px;
+	margin-right:auto;
+	margin-left:auto;
+	width:80%;
+}
+
+#travelmethodselection {
+	position:relative;
+	margin-right:auto;
+	margin-left:auto;
+	padding:2px;
+	display:inline-block;
+	left:40px;
+}
+
+#traveltypeselection {
+	padding:2px;
+	margin-right:auto;
+	margin-left:auto;
+	display:inline-block;
+}
