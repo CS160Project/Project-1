@@ -99,14 +99,6 @@
 			}
 		}
 	}
-	
-	// Getting the total results from Zimride and Ridejoy (testing purposes)
-	$temp1 = $zimride->find('span[class=showing]');
-	$temp2 = $ridejoy->find('div[class=search_results_explanation]');
-	
-	$str = $temp1[0]->childNodes(0)->text()." and ".$temp2[0]->childNodes(0)->text();
-
-	echo "<script type=\"text/javascript\">window.alert(\"$str\")</script>";
 
 	// Multiple result pages scrapping method (not complete)
 	/*$zrTag = $zimride->find('span[class=current_page]');
