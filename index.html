@@ -6,9 +6,10 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places" type="text/javascript"></script>
 <script src="index.js" type="text/javascript"></script>
 <title>Group 1: VROOM - CS 160</title>
+</head>
 <body>
 <img id="logo" alt="Logo Picture" src="carshare.jpg"/>
-<form action="scrap.php" method="post">
+<form action="scrap.php" method="post" onsubmit="return validateInput()">
 	<div id="searchbutton"> <!-- DIV for search button -->
 		<input type="submit" name="submit" value="Search"/>
 	</div>
@@ -26,8 +27,8 @@
 		</div>
 	</div>
 	<div id="locationselection"> <!-- This DIV contains the two location text box and the converter -->
-		<strong>From: </strong><input id="originTextField" type="text" name="originTextField" size="30"/>
-		<strong>To: </strong><input id="destinationTextField" type="text" name="destinationTextField" size="30"/>
+		<strong>From: </strong><input id="originTextField" type="text" name="originTextField" size="30" onchange="onChangeOriginInput()"/>
+		<strong>To: </strong><input id="destinationTextField" type="text" name="destinationTextField" size="30" onchange="onChangeDestinationInput()"/>
 
 		<select name ="currency_to"> <!-- Selection for Currency Converter -->
                 	<option value="AFA">Afghan Afghani (AFA)</option>
@@ -194,5 +195,4 @@
 	<input name ="destinationLongitudeTextField" id="destinationLongitudeTextField" type="hidden" size="40"/>
 </form>
 </body>
-</head>
 </html>

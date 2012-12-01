@@ -60,3 +60,36 @@ function initialize() {
 
 // Set the google map event listener to start to active once the load function completes and call initialize function
 google.maps.event.addDomListener(window, 'load', initialize);
+
+// validateInput
+// Input: None
+// Output: Ture if all input is valid, false if not
+// Check if the input is correct before sending 
+function validateInput()
+{
+    if (document.getElementById('originLatitudeTextField').value == "")
+    { 
+            alert('Invalid input for original location! Please try again.');
+			return false;
+    }
+
+	if(document.getElementById('destinationLatitudeTextField').value  == "")
+    {
+            alert('Invalid input for destination location! Please try again.');
+			return false;
+    }  // if
+
+	return true;
+}  // function validateInput()
+
+function onChangeOriginInput()
+{ 
+			document.getElementById('originLatitudeTextField').value = "";
+			document.getElementById('originLongitudeTextField').value = "";
+}  // function onChangeOriginInput()
+
+function onChangeDestinationInput()
+{ 
+			document.getElementById('destinationLatitudeTextField').value = "";
+			document.getElementById('destinationLongitudeTextField').value = "";
+}  // function onChangeDestinationInput()
