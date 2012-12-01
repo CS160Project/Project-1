@@ -78,7 +78,13 @@ function createCell(i, item) {
 
 	$("#results").append(cell);
 
-	addresses.push(item.from);
+	// Storing addresses for Markers and Infowindows
+	if (item.from != "") {
+		addresses.push(item.from);
+	}
+	else {
+		addresses.push("NA");
+	}
 	//alert("address length: "+addresses.length);
 	//alert("cell length: "+cell.length);
 }
@@ -97,7 +103,8 @@ function showMap() {
 	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
 	directionsDisplay.setMap(map);
-		
+	
+	// Current Location	
 	/*if(navigator.geolocation) {
 		// timeout at 60000 milliseconds (60 seconds)
 		var options = {timeout:60000};
@@ -141,10 +148,30 @@ function showMap() {
 	//alert("markers length: "+markers.length);
 }
 
+// Use geoCode to get the location on the map to place the marker
+function geocodeAddress() {
+	for (var k = 0; k < 1 && geoIndex < addresses.length; ++k) {
+		codeAddress(geoIndex);
+		geoIndex++;
+	}
+
+	if (geoIndex >= addresses.length) {
+		clearInterval(geoTimer);
+		//alert(markers.length+", "+addresses.length);
+		//var markerCluster = new MarkerClusterer(map, markers);
+		alert("Done placing markers");
+	}
+}
+
 function codeAddress(index) {
-	geocoder.geocode( {'address': addresses[index]}, function(results, status) {
-		processGeocode(results, status, index);
-	});
+	if (addresses[index] != "NA") {	
+		geocoder.geocode( {'address': addresses[index]}, function(results, status) {
+			processGeocode(results, status, index);
+		});
+	}
+	else {
+		markers.push(null);
+	} 
 }
 
 function processGeocode(results, status, index) {
@@ -159,13 +186,14 @@ function processGeocode(results, status, index) {
 
 		markers.push(marker);
 
+		// Click event for marker: Zoom in
 		google.maps.event.addListener(marker, "click", function() {
 			map.setZoom((map.getZoom() + 2));
 			map.setCenter(marker.getPosition());
 		});
 		
+		// Mouseover event for marker: Highlight result and scroll it into the middle of the result box
 		google.maps.event.addListener(marker, 'mouseover', function() {
-			//var cell = document.getElementById("c"+index);
 			// Scrolling to the selected cell
 			$("div#c"+index).parent().get(0).scrollIntoView();
 			$("div#c"+index).css({"background-color": "#29598E"});
@@ -173,6 +201,7 @@ function processGeocode(results, status, index) {
 			//alert($("div#c"+index).parent().offset().top+", "+$("div#results").offset().top+", "+$("div#results").scrollTop());
 		});
 
+		// Mouseout event for marker: Remove highlight of result
 		google.maps.event.addListener(marker, 'mouseout', function() {
 			//var cell = document.getElementById("c"+index);
 			$("div#c"+index).css({"background-color": "white"});
@@ -186,20 +215,6 @@ function processGeocode(results, status, index) {
 	}
 	else {
 		alert("Geocode was not successful for the following reason: " + status);
-	}
-}
-
-function geocodeAddress() {
-	for (var k = 0; k < 1 && geoIndex < addresses.length; ++k) {
-		codeAddress(geoIndex);
-		geoIndex++;
-	}
-
-	if (geoIndex >= addresses.length) {
-		clearInterval(geoTimer);
-		//alert(markers.length+", "+addresses.length);
-		//var markerCluster = new MarkerClusterer(map, markers);
-		alert("Done placing markers");
 	}
 }
 

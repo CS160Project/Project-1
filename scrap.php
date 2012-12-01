@@ -131,7 +131,7 @@
 			}
 			else {
 				$main11 = "NA";
-				echo "<script type=\"text/javascript\">window.alert(\"Error: no trip type\")</script>";
+				echo "<script type=\"text/javascript\">window.alert(\"Zimride error: no trip type\")</script>";
 			}
 			
 			$temp = $e->find('span[class=inner]',0)->innertext;
@@ -193,7 +193,10 @@
 				$main10 = "Passenger";
 			}
 			else {
-				echo "<script type=\"text/javascript\">window.alert(\"Error: No passenger or driver\")</script>";
+				echo "<script type=\"text/javascript\">window.alert(\"Zimride error: No passenger or driver\")</script>";
+				$main8 = "NA";
+				$main9 = "NA";
+				$main10 = "NA";
 			}
 			
 			$arr[] = array(
@@ -264,7 +267,10 @@
 				$main10 = "Passenger";
 			}
 			else {
-				echo "<script type=\"text/javascript\">window.alert(\"Error: No passenger or driver\")</script>";
+				echo "<script type=\"text/javascript\">window.alert(\"Ridejoy error: No passenger or driver\")</script>";
+				$main8 = "NA";
+				$main9 = "NA";
+				$main10 = "NA";
 			}
 				
 			$arr[] = array(
