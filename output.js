@@ -26,10 +26,10 @@ function processData(data) {
 	});
 
 	$("div#c0").parent().get(0).scrollIntoView();
-		
+
 	for (var i = 0; i < addresses.length; i++) {
 		var infowindow;
-		$("div#c"+i).hover(function() {				
+		$("div#c"+i).hover(function() {
 				$(this).css({"background-color": "#29598E"});
 				var tmp = $(this).attr("id");
 				map.panTo(markers[tmp.substring(1)].getPosition());
@@ -48,8 +48,8 @@ function processData(data) {
 }
 
 function createCell(i, item) {
-	var cell = "<a id=\"a"+i+"\" href=\""+item.profile+"\" target =\"_blank\">";	
-		cell += "<div class=\"entry\" id=\"c"+i+"\">";    
+	var cell = "<a id=\"a"+i+"\" href=\""+item.profile+"\" target =\"_blank\">";
+		cell += "<div class=\"entry\" id=\"c"+i+"\">";
 			cell += "<div class=\"traveltype_box\">";
 				cell += "<p>";
 					cell += "<span class=\"icon\">";
@@ -91,9 +91,9 @@ function createCell(i, item) {
 
 function showMap() {
 	directionsDisplay = new google.maps.DirectionsRenderer();
-	currentPosition = new google.maps.LatLng(37.3041, -121.8727);		
+	currentPosition = new google.maps.LatLng(37.3041, -121.8727);
 	geocoder = new google.maps.Geocoder();
-	
+
 	var mapOptions = {
 		zoom: 8,
 		center: currentPosition,
@@ -103,8 +103,8 @@ function showMap() {
 	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
 	directionsDisplay.setMap(map);
-	
-	// Current Location	
+
+	// Current Location
 	/*if(navigator.geolocation) {
 		// timeout at 60000 milliseconds (60 seconds)
 		var options = {timeout:60000};
@@ -118,7 +118,7 @@ function showMap() {
 				map.panTo(marker.getPosition());
 				}, 3000);
 			});
-		}, 
+		},
 		function (err) {
 			if(err.code == 1) {
 				alert("Error: Access is denied!");
@@ -164,14 +164,14 @@ function geocodeAddress() {
 }
 
 function codeAddress(index) {
-	if (addresses[index] != "NA") {	
+	if (addresses[index] != "NA") {
 		geocoder.geocode( {'address': addresses[index]}, function(results, status) {
 			processGeocode(results, status, index);
 		});
 	}
 	else {
 		markers.push(null);
-	} 
+	}
 }
 
 function processGeocode(results, status, index) {
@@ -191,7 +191,7 @@ function processGeocode(results, status, index) {
 			map.setZoom((map.getZoom() + 2));
 			map.setCenter(marker.getPosition());
 		});
-		
+
 		// Mouseover event for marker: Highlight result and scroll it into the middle of the result box
 		google.maps.event.addListener(marker, 'mouseover', function() {
 			// Scrolling to the selected cell
@@ -207,10 +207,10 @@ function processGeocode(results, status, index) {
 			$("div#c"+index).css({"background-color": "white"});
 		});
 
-		// Extending the bounds object with each LatLng 
-       		bounds.extend(place); 
+		// Extending the bounds object with each LatLng
+       		bounds.extend(place);
 
-           	// Adjusting the map to new bounding box 
+           	// Adjusting the map to new bounding box
        		map.fitBounds(bounds);
 	}
 	else {
@@ -222,6 +222,18 @@ function processGeocode(results, status, index) {
 jQuery.fn.sort = function() {
 	return this.pushStack([].sort.apply(this, arguments), []);
 };
+
+function sortLocationAscending(pFObject, pSObject) {
+    var city1 = pFObject.from.toUpperCase();
+    var city2 = pSObject.from.toUpperCase();
+    return (city1 < city2) ? -1 : (city1 > city2) ? 1 : 0;
+}; // sortLocationAscending
+
+function sortLocationDescending(pFObject, pSObject) {
+    var city1 = pFObject.from.toUpperCase();
+    var city2 = pSObject.from.toUpperCase();
+    return (city1 > city2) ? -1 : (city1 < city2) ? 1 : 0;
+}; // sortLocationDescending
 
 function sortPriceDescending(pFObject, pSObject) {
 	if (parseFloat(pFObject.price) == parseFloat(pSObject.price) || pFObject == pSObject) {
@@ -238,7 +250,7 @@ function sortPriceDescending(pFObject, pSObject) {
 	}
 };  // sortPriceDescending
 
-function sortPriceAscending(pFObject, pSObject) {	
+function sortPriceAscending(pFObject, pSObject) {
 	if(parseFloat(pFObject.price) == parseFloat(pSObject.price)  || pFObject == pSObject) {
 		return 0;
 	}
@@ -259,24 +271,32 @@ function loadJSON() {
 
 function filter(pData) {
 	var lJsonObject = pData;
-	
+
 	var lSortOption = document.getElementById("cmbSort").value;
 
 	var lObject = $(lJsonObject).sort(sortPriceAscending);
-	
+
 	switch(lSortOption)
 	{
 		case "Default Price -- Ascending":
 		lObject = $(lJsonObject).sort(sortPriceAscending);
 		break;
-		
+
 		case "Price -- Descending":
 		lObject = $(lJsonObject).sort(sortPriceDescending);
+		break;
+
+		case "Location -- Ascending":
+		lObject = $(lJsonObject).sort(sortLocationAscending);
+		break;
+
+		case "Location -- Descending":
+		lObject = $(lJsonObject).sort(sortLocationDescending);
 		break;
 
 		default:
 		break;
 	}  // switch
-	
+
 	processData(lObject);
 }
