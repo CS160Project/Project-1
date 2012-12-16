@@ -19,29 +19,17 @@
 <title>Group 1: VROOM - CS 160</title>
 </head>
 <body>
-<<<<<<< HEAD
-<img id="logo" alt="Logo Picture" src="carshare.jpg"/>
-<form action="scrap.php" method="post" onsubmit="return validateInput()">
-	<div id="buttonselection"> <!-- DIV for radio buttons -->
-		<div id="travelmethodselection">
-			<input type="radio" name ="vehicleType" value="car" checked="checked"/>Car
-			<input type="radio" name ="vehicleType" value="bus"/>Bus
-			<input type="radio" name ="vehicleType" value="both"/>Both
-		</div>
 
-		<div id="traveltypeselection">
-			<input type="radio" name ="travelStatus" value="need" checked="checked"/>Passenger
-			<input type="radio" name ="travelStatus" value="offer"/>Driver
-			<input type="radio" name ="travelStatus" value="either"/>Either
-		</div>
-	</div>
-=======
+
+
+	
+
 <div id="redolink"> <!-- DIV containing the Redo Search link -->
 	<!-- <a href="index.html"><span>Redo Search</span></a>-->
 	<img id="logo" alt="Logo Picture" src="carshare.png"/>
 <form action="scrap.php" method="post" onsubmit="return validateInput()">
 		
->>>>>>> 03f86de23af21fa0ff45f633f3b50fc1309a8093
+
 	<div id="locationselection"> <!-- This DIV contains the two location text box and the converter -->
 		<strong>From: </strong><input id="originTextField" type="text" name="originTextField" size="30" onchange="onChangeOriginInput()"/>
 		<strong>To: </strong><input id="destinationTextField" type="text" name="destinationTextField" size="30" onchange="onChangeDestinationInput()"/>
@@ -204,6 +192,7 @@
                 	<option value="YER">Yemeni Rial (YER)</option>
                 	<option value="ZMK">Zambian Kwacha (ZMK)</option>
         	</select>
+		</div>
 		<div id="buttonselection"> <!-- DIV for radio buttons -->
 			<div id="travelmethodselection">
 				<input type="radio" name ="vehicleType" value="car" checked="checked"/>Car
@@ -218,17 +207,15 @@
 			</div>
 		</div>
 		
+		<div id="dateselection">
+			<strong>Date: </strong><input id="date" name="dateselected" readonly/>
+		</div>
 		<div id="searchbutton"> <!-- DIV for search button -->
 			<input type="submit" name="submit" value="Search"/>
 		</div>
 	</div>
-	<div id="dateselection">
-		<strong>Date: </strong><input id="date" name="dateselected" readonly/>
-	</div>
-	 <!-- DIV for search button -->
-	<div id="searchbutton">
-		<input type="submit" name="submit" value="Search"/>
-	</div>
+	
+	 
 	<!--Need two hidden fields to store the latitude and longitude for the user input location based on Google Map Autocomplete API-->
 	<input name ="originLatitudeTextField" id="originLatitudeTextField" type="hidden" size="40"/>
 	<input name ="originLongitudeTextField" id="originLongitudeTextField" type="hidden" size="40"/>
@@ -248,9 +235,7 @@
 	<div id="map_canvas" style="height:600px;"></div> <!-- DIV containing the Google Map -->
 	<div id="results"></div> <!-- DIV containing the result -->
 </div>
-<div id="redolink"> <!-- DIV containing the Redo Search link -->
-	<!-- <a href="index.html"><span>Redo Search</span></a>-->
-</div>
+
 <div id="selection"> <!-- DIV containing the Price Sorter Selection -->
 	<select id ="cmbSort" onChange ="loadJSON()">
 	<option>Default Price -- Ascending</option>
@@ -259,10 +244,7 @@
 	<option>Location -- Descending</option>
 	</select>
 </div>
-<div id="mainframe">
-	<div id="map_canvas" style="height:600px;"></div> <!-- DIV containing the Google Map -->
-	<div id="results"></div> <!-- DIV containing the result -->
-</div>
+
 
 </body>
 </html>

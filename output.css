@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 /*
 ** Cascade Style Sheet for Output HTML
 */
@@ -53,14 +53,19 @@ body {
 	height:30px;
 }
 
+
 /* DIV containing Redo Search link */
 #redolink {
 	position:relative;
 	margin-top:20px;
+	display: block;
+	/*
+	
 	margin-left:auto;
 	margin-right:auto;
-	width:200px;
-	height:50px;
+	width:250px;
+	*/
+	clear : both;
 }
 
 h3 {
