@@ -11,6 +11,18 @@ function initialize() {
 	// Create the autocomplete for the input origin location
 	var lOriginAutocomplete = new google.maps.places.Autocomplete(lOriginInput);
 
+	// Setting up Calendar for Date field
+	myCalendar = new dhtmlXCalendarObject(["date"]);
+	myCalendar.hideTime();
+	var d = new Date();
+	var cur_date = d.getDate();
+	var cur_month = d.getMonth() + 1;
+	var cur_year = d.getFullYear();
+	var date = cur_year+"-"+cur_month+"-"+cur_date;
+	//alert(cur_month);
+	//myCalendar.setDate(date);
+	myCalendar.setSensitiveRange(date, null);
+
 	// Add listener to the autcomplete
 	// Once the user click on one of autocomplete opinions, the latitude and longitude
 	// for the location will be filled into the hidden field 

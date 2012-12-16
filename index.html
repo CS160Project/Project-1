@@ -5,14 +5,15 @@
 <link href="index.css" rel="stylesheet"  type="text/css">
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places" type="text/javascript"></script>
 <script src="index.js" type="text/javascript"></script>
+<!-- Link to Date Picker -->
+<link rel="stylesheet" type="text/css" href="./codebase/dhtmlxcalendar.css">
+<script src="./codebase/skins/dhtmlxcalendar_dhx_skyblue.css.js"></script>
+<script src="./codebase/dhtmlxcalendar.js"></script>
 <title>Group 1: VROOM - CS 160</title>
 </head>
 <body>
 <img id="logo" alt="Logo Picture" src="carshare.jpg"/>
 <form action="scrap.php" method="post" onsubmit="return validateInput()">
-	<div id="searchbutton"> <!-- DIV for search button -->
-		<input type="submit" name="submit" value="Search"/>
-	</div>
 	<div id="buttonselection"> <!-- DIV for radio buttons -->
 		<div id="travelmethodselection">
 			<input type="radio" name ="vehicleType" value="car" checked="checked"/>Car
@@ -23,14 +24,16 @@
 		<div id="traveltypeselection">
 			<input type="radio" name ="travelStatus" value="need" checked="checked"/>Passenger
 			<input type="radio" name ="travelStatus" value="offer"/>Driver
-			<input type="radio" name ="travelStatus" value="either"/>Both
+			<input type="radio" name ="travelStatus" value="either"/>Either
 		</div>
 	</div>
 	<div id="locationselection"> <!-- This DIV contains the two location text box and the converter -->
 		<strong>From: </strong><input id="originTextField" type="text" name="originTextField" size="30" onchange="onChangeOriginInput()"/>
 		<strong>To: </strong><input id="destinationTextField" type="text" name="destinationTextField" size="30" onchange="onChangeDestinationInput()"/>
-
-		<select name ="currency_to"> <!-- Selection for Currency Converter -->
+	</div>
+	<div id="currencyconverter">
+		 <!-- Selection for Currency Converter -->
+		<select name ="currencytype">
                 	<option value="AFA">Afghan Afghani (AFA)</option>
 	                <option value="DZD">Algerian Dinar (DZD)</option>
         	        <option value="AOA">Angolan Kwanza (AOA)</option>
@@ -186,6 +189,13 @@
                 	<option value="YER">Yemeni Rial (YER)</option>
                 	<option value="ZMK">Zambian Kwacha (ZMK)</option>
         	</select>
+	</div>
+	<div id="dateselection">
+		<strong>Date: </strong><input id="date" name="dateselected" size="15" style="text-align:center" readonly/>
+	</div>
+	 <!-- DIV for search button -->
+	<div id="searchbutton">
+		<input type="submit" name="submit" value="Search"/>
 	</div>
 	<!--Need two hidden fields to store the latitude and longitude for the user input location based on Google Map Autocomplete API-->
 	<input name ="originLatitudeTextField" id="originLatitudeTextField" type="hidden" size="40"/>

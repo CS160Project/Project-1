@@ -10,8 +10,21 @@ var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var currentPosition;
 var bounds = new google.maps.LatLngBounds();
+var myCalendar;
 
 $("document").ready(function() {
+	// Setting up Calendar for Date field
+	myCalendar = new dhtmlXCalendarObject(["date"]);
+	myCalendar.hideTime();
+	var d = new Date();
+	var cur_date = d.getDate();
+	var cur_month = d.getMonth() + 1;
+	var cur_year = d.getFullYear();
+	var date = cur_year+"-"+cur_month+"-"+cur_date;
+	//alert(cur_month);
+	//myCalendar.setDate(date);
+	myCalendar.setSensitiveRange(date, null);
+
 	$.getJSON("results.json", function(data) {
 		processData(data);
 		showMap();
@@ -49,30 +62,36 @@ function processData(data) {
 
 function createCell(i, item) {
 	var cell = "<a id=\"a"+i+"\" href=\""+item.profile+"\" target =\"_blank\">";
-		cell += "<div class=\"entry\" id=\"c"+i+"\">";
-			cell += "<div class=\"traveltype_box\">";
-				cell += "<p>";
-					cell += "<span class=\"icon\">";
-              					if (item.traveltypeicon != "NA") {
-							cell += "<img class=\"icon\" alt=\"Travel Status\" src=\""+item.traveltypeicon+"\"/>";
+		cell += "<div class=\"result_box\" id=\"c"+i+"\">";
+			cell += "<div class=\"headline\">";
+				cell += "<strong class=\"source\">"+i+" - "+item.sourcesite+"</strong><br />";
+				cell += "<span class=\"date\">"+item.departuredate+"</span>";
+			cell += "</div>";
+			cell += "<div class=\"entry\">";
+				cell += "<div class=\"traveltype_box\">";
+					cell += "<p>";
+						cell += "<span class=\"icon\">";
+        	      					cell += "<img class=\"icon\" alt=\"Travel Status\" src=\""+item.traveltypeicon+"\"/>";
+						cell += "</span><br />";
+						cell += "<strong class=\"traveltext\">"+item.traveltype+"</strong>";
+						if (item.traveltype == "Driver") {
+							cell += "<span class=\"price\">"+item.price+" "+item.currencytype+" per seat</span><br />";
+							cell += "<span class=\"numberofseat\">"+item.seat+" seat remaining</span>";
 						}
-					cell += "</span><br />";
-					cell += "<strong class=\"traveltext\">"+item.traveltype+"</strong>";
-					cell += "<span class=\"price\">"+item.price+" "+item.currencytype+"/seat</span>";
-				cell += "</p>";
+					cell += "</p>";
+				cell += "</div>";
+				cell += "<div class=\"userpic\">";
+					cell += "<img class=\"profile\" alt=\"Profile Picture\" src=\""+item.image+"\"/>";
+					cell += "<br /><strong class=\"name\">"+item.personname+"</strong>";
+				cell += "</div>";
+				cell += "<div class=\"inner_content \">";
+					cell += "<h3>";
+						cell += "<span class=\"inner\"> "+item.from;
+							cell += " <span class=\"travel_type\">&rarr;</span> "+item.to;
+						cell += "</span>";
+					cell += "</h3>";
+				cell += "</div>";
 			cell += "</div>";
-			cell += "<div class=\"userpic\">";
-				cell += "<img class=\"profile\" alt=\"Profile Picture\" src=\""+item.image+"\"/>";
-				cell += "<span class=\"passenger\"></span>";
-			cell += "</div>";
-			cell += "<div class=\"inner_content \">";
-				cell += "<h3>";
-					cell += "<span class=\"inner\"> "+item.from;
-						cell += " <span class=\"travel_type\">&rarr;</span> "+item.to;
-					cell += " </span>";
-				cell += "</h3>";
-			cell += "</div>";
-			cell += "<h4 class=\"name\">"+i+" - "+item.name+"</h4>";
 		cell += "</div>";
 	cell += "</a>";
 
@@ -83,7 +102,7 @@ function createCell(i, item) {
 		addresses.push(item.from);
 	}
 	else {
-		addresses.push("NA");
+		addresses.push("N/A");
 	}
 	//alert("address length: "+addresses.length);
 	//alert("cell length: "+cell.length);
@@ -164,7 +183,7 @@ function geocodeAddress() {
 }
 
 function codeAddress(index) {
-	if (addresses[index] != "NA") {
+	if (addresses[index] != "N/A") {
 		geocoder.geocode( {'address': addresses[index]}, function(results, status) {
 			processGeocode(results, status, index);
 		});
@@ -239,10 +258,10 @@ function sortPriceDescending(pFObject, pSObject) {
 	if (parseFloat(pFObject.price) == parseFloat(pSObject.price) || pFObject == pSObject) {
 		return 0;
 	}
-	else if (pFObject.price == "NA") {
+	else if (pFObject.price == "N/A") {
 		return 1;
 	}
-	else if (pSObject.price == "NA") {
+	else if (pSObject.price == "N/A") {
 		return -1;
 	}
 	else {
@@ -254,10 +273,10 @@ function sortPriceAscending(pFObject, pSObject) {
 	if(parseFloat(pFObject.price) == parseFloat(pSObject.price)  || pFObject == pSObject) {
 		return 0;
 	}
-	else if (pFObject.price == "NA") {
+	else if (pFObject.price == "N/A") {
 		return -1;
 	}
-	else if (pSObject.price == "NA") {
+	else if (pSObject.price == "N/A") {
 		return 1;
 	}
 	else {

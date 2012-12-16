@@ -22,8 +22,8 @@ body {
 #searchbutton {
 	margin-right:auto;
 	margin-left:auto;
-	width:5%;
 	height:30px;
+	width:5%;	
 }
 
 /* Radio Button */
@@ -36,24 +36,45 @@ body {
 
 #locationselection {
 	position:relative;
-	height:100px;
+	height:30px;
+	width:750px;
 	margin-right:auto;
 	margin-left:auto;
-	width:1200px;
+	left:40px;	
 }
 
 #travelmethodselection {
 	position:relative;
+	padding:2px;
 	margin-right:auto;
 	margin-left:auto;
-	padding:2px;
 	display:inline-block;
-	left:40px;
+	left:50px;
 }
 
 #traveltypeselection {
+	position:relative;
 	padding:2px;
 	margin-right:auto;
 	margin-left:auto;
 	display:inline-block;
+	left:20px;
+}
+
+#currencyconverter {
+	position:relative;
+	height:30px;
+	width:350px;
+	margin-right:auto;
+	margin-left:auto;
+	left:20px;
+}
+
+#dateselection {
+	position:relative;
+	height:30px;
+	width:300px;
+	margin-right:auto;
+	margin-left:auto;
+	left:20px;
 }
