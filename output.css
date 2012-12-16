@@ -257,21 +257,6 @@ h3.headline {
 	margin: 10px 10px 0px;
 }
 
-div.entry {
-	padding: 5px;
-	margin: 0px 10px 10px;
-	overflow: hidden;
-}
-
-div.traveltype_box {
-	float: right;
-	display:inline-block;
-	height: 65px;
-	padding: 6px;
-	text-align: center;
-	width: 75px;
-}
-
 div.userpic {
 	float: left;
 	display:inline-block;
@@ -320,21 +305,8 @@ strong.traveltext {
 	font-weight: bold;
 	color: #FF0000; /* Color code for Red */
 }
- 
-.ride_list .entry .userpic img {
-	height: 75px;
-	width: 75px;
-}
 
-.ride_list a:link {
-	text-decoration: none;
-}
-
-.ride_list a:visited {
-	color:black;
-}
-
-img {
+img.logo {
 	float : left;
 }
 
