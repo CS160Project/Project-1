@@ -1,5 +1,7 @@
 // The querying to Google.com is slow down so marker will takes awhile. Wait for a message of completion
-var addresses = [];
+var addressesFrom = [];
+var addressesTo = [];
+var profileName = [];
 var geoIndex;
 var marker;
 var markers = [];
@@ -40,14 +42,14 @@ function processData(data) {
 
 	$("div#c0").parent().get(0).scrollIntoView();
 
-	for (var i = 0; i < addresses.length; i++) {
+	for (var i = 0; i < addressesFrom.length; i++) {
 		var infowindow;
 		$("div#c"+i).hover(function() {
 				$(this).css({"background-color": "#29598E"});
 				var tmp = $(this).attr("id");
 				map.panTo(markers[tmp.substring(1)].getPosition());
 				infowindow = new google.maps.InfoWindow({
-					content: "<span width=20px height=20px>"+$.trim(markers[tmp.substring(1)].getTitle())+"</span><br /><span width=20px height=20px>"+$.trim(addresses[tmp.substring(1)])+"</span>"
+					content: "<span width=20px height=20px>"+$.trim(markers[tmp.substring(1)].getTitle())+"</span><br /><span width=20px height=20px><strong>"+$.trim(profileName[tmp.substring(1)])+"</strong></span><br /><span width=20px height=20px>"+$.trim(addressesFrom[tmp.substring(1)])+"</span><span width=20px height=20px> to "+$.trim(addressesTo[tmp.substring(1)])+"</span>"
 				});
 
 				infowindow.open(map, markers[tmp.substring(1)]);
@@ -97,14 +99,18 @@ function createCell(i, item) {
 
 	$("#results").append(cell);
 
-	// Storing addresses for Markers and Infowindows
+	// Storing addressesFrom for Markers and Infowindows
 	if (item.from != "") {
-		addresses.push(item.from);
+		addressesFrom.push(item.from);
+		addressesTo.push(item.to);
+		profileName.push(item.personname);
 	}
 	else {
-		addresses.push("N/A");
+		addressesFrom.push("N/A");
+		addressesTo.push("N/A");
+		profileName.push("N/A");
 	}
-	//alert("address length: "+addresses.length);
+	//alert("address length: "+addressesFrom.length);
 	//alert("cell length: "+cell.length);
 }
 
@@ -169,22 +175,22 @@ function showMap() {
 
 // Use geoCode to get the location on the map to place the marker
 function geocodeAddress() {
-	for (var k = 0; k < 1 && geoIndex < addresses.length; ++k) {
+	for (var k = 0; k < 1 && geoIndex < addressesFrom.length; ++k) {
 		codeAddress(geoIndex);
 		geoIndex++;
 	}
 
-	if (geoIndex >= addresses.length) {
+	if (geoIndex >= addressesFrom.length) {
 		clearInterval(geoTimer);
-		//alert(markers.length+", "+addresses.length);
+		//alert(markers.length+", "+addressesFrom.length);
 		//var markerCluster = new MarkerClusterer(map, markers);
 		alert("Done placing markers");
 	}
 }
 
 function codeAddress(index) {
-	if (addresses[index] != "N/A") {
-		geocoder.geocode( {'address': addresses[index]}, function(results, status) {
+	if (addressesFrom[index] != "N/A") {
+		geocoder.geocode( {'address': addressesFrom[index]}, function(results, status) {
 			processGeocode(results, status, index);
 		});
 	}

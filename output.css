@@ -42,6 +42,7 @@ body {
 	margin-left:25px;
 	width:1250px;
 	height:600px;
+	margin-bottom:30px;
 }
 
 /* Price Sorting Pop Down */
@@ -203,7 +204,7 @@ body {
 	width:600px;
 	height:600px;
 	border:1px solid;
-	overflow:scroll;
+	overflow:auto;
 	margin-left:auto;
 	margin-right:auto;
 }
@@ -213,6 +214,7 @@ body {
 	margin-left:25px;
 	width:1250px;
 	height:600px;
+	margin-bottom:30px;
 }
 
 /* Price Sorting Pop Down */
@@ -256,7 +258,6 @@ h3.headline {
 }
 
 div.entry {
-	border: 1px solid #A7A7A7;
 	padding: 5px;
 	margin: 0px 10px 10px;
 	overflow: hidden;
@@ -332,9 +333,11 @@ strong.traveltext {
 .ride_list a:visited {
 	color:black;
 }
+
 img {
 	float : left;
 }
+
 form {
 	float: left;
 	margin: 50px;
