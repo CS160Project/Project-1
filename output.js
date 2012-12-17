@@ -118,6 +118,7 @@ function showMap() {
 	directionsDisplay = new google.maps.DirectionsRenderer();
 	currentPosition = new google.maps.LatLng(37.3041, -121.8727);
 	geocoder = new google.maps.Geocoder();
+	$("#map_canvas").empty();
 
 	var mapOptions = {
 		zoom: 8,
@@ -159,13 +160,6 @@ function showMap() {
 	else {
 		alert("Sorry, browser does not support geolocation!");
 	}*/
-
-	var input = document.getElementById("address");
-	var autoOptions = {
-	bounds: currentPosition
-	//types: ['establishment']  // Comment out if we need to get both bussiness and address
-	};
-	autocomplete = new google.maps.places.Autocomplete(input, autoOptions);
 
 	// This is to slow down the querying to Google.com
 	geoIndex = 0;

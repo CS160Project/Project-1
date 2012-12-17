@@ -403,6 +403,10 @@
 
 	//echo "<script type=\"text/javascript\">window.alert(\"$filename successfully created\")</script>";
 
-	$resultpage = file_get_contents("./output.html", false);
-	echo $resultpage;
+	if (($resultpage = file_get_contents("./output.html", false)) === false) {
+		echo "<script type=\"text/javascript\">window.alert(\"Cannot open file: output.html\")</script>";
+	}
+	else {
+		echo $resultpage;
+	}
 ?>
