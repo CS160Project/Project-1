@@ -1,3 +1,8 @@
+var lOriginLocation;
+var lOriginLocationName;
+var lDestinationLocation;
+var lDestinationLocationName;
+
 // initialize
 // Input: None
 // Output: None
@@ -25,24 +30,29 @@ function initialize() {
 
 	// Add listener to the autcomplete
 	// Once the user click on one of autocomplete opinions, the latitude and longitude
-	// for the location will be filled into the hidden field 
-	google.maps.event.addListener(lOriginAutocomplete, 'place_changed', 
+	// for the location will be filled into the hidden field
+	google.maps.event.addListener(lOriginAutocomplete, 'place_changed',
 		function () {
-			// Set the origin input as none
-			lOriginInput.className = '';
-			// Retrive the location based on the current autcomplete
-			var lPlace = lOriginAutocomplete.getPlace();
-			// If the returned place is not on the map, stop performing the process
-			if (!lPlace.geometry) {
-				lOriginInput.className = 'not found';
-				return;
-			}  // if
-			// If the location is valid, set the longitude and latitude to the hidden fields
-			var lLocation = lPlace.geometry.location;
-			document.getElementById('originLatitudeTextField').value = lLocation.lat();
-			document.getElementById('originLongitudeTextField').value = lLocation.lng();
-                }  // lambda function
-                );  // google.maps.event.addListener
+		    // Set the origin input as none
+		    lOriginInput.className = '';
+		    // Retrive the location based on the current autcomplete
+		    var lPlace = lOriginAutocomplete.getPlace();
+		    // If the returned place is not on the map, stop performing the process
+		    if (!lPlace.geometry) {
+		        lOriginInput.className = 'not found';
+		        return;
+		    }  // if
+		    // If the location is valid, set the longitude and latitude to the hidden fields
+		    var lLocation = checkSingleAddressIsInUSA(lPlace);
+		    if (lLocation != null) 
+            {
+		        lOriginLocation = lLocation.geometry.location;
+		        lOriginLocationName = lLocation.formatted_address;
+		        document.getElementById('originLatitudeTextField').value = lOriginLocation.lat();
+		        document.getElementById('originLongitudeTextField').value = lOriginLocation.lng();
+		    }  // if
+		}  // lambda function
+                );     // google.maps.event.addListener
 
                 // Create object reference to the input destination location
                 var lDestinationInput = document.getElementById('destinationTextField');
@@ -63,9 +73,15 @@ function initialize() {
 				return;
 			}  // if
 			// If the location is valid, set the longitude and latitude to the hidden fields
-			var lLocation = lPlace.geometry.location;
-			document.getElementById('destinationLatitudeTextField').value = lLocation.lat();
-			document.getElementById('destinationLongitudeTextField').value = lLocation.lng();
+            var lLocation = checkSingleAddressIsInUSA(lPlace);
+		    if (lLocation != null) 
+            {
+			lDestinationLocation = lLocation.geometry.location;
+            lDestinationLocationName = lLocation.formatted_address;
+
+			document.getElementById('destinationLatitudeTextField').value = lDestinationLocation.lat();
+			document.getElementById('destinationLongitudeTextField').value = lDestinationLocation.lng();
+            }  // if
                 }  // lambda function
                 );  // google.maps.event.addListener
 }  // function initialize()
@@ -79,29 +95,204 @@ google.maps.event.addDomListener(window, 'load', initialize);
 // Check if the input is correct before sending 
 function validateInput()
 {
+    var lCorrect = true;
+    $("#message_tag").empty();
     if (document.getElementById('originLatitudeTextField').value == "")
-    { 
-            alert('Invalid input for original location! Please try again.');
-			return false;
-    }
+    {    
+        lCorrect = false;  
+        if (lOriginLocation != null) {
+            if(lOriginLocationName.toLowerCase() == document.getElementById('originTextField').value.toLowerCase() &&
+            document.getElementById('originTextField').value != '')
+            {
+                    setOriginInput();
+                    lCorrect = true;
+            }  // if
+            else{
+                $("#message_tag").append('<p>Invalid input for original location!</p>');
+                $("#message_tag").append('<p>Do you mean <a href ="#" onClick="setOriginInput()">' + lOriginLocationName + '</a>?</p>');
+            }  // else
+        } // if
+        else {
+                $("#message_tag").append('<p>Invalid input for original location! Please try again.</p>');
+        }  // else
+    }  // if
 
 	if(document.getElementById('destinationLatitudeTextField').value  == "")
     {
-            alert('Invalid input for destination location! Please try again.');
-			return false;
+        lCorrect = false;
+        if (lDestinationLocation != null) {
+            if(lDestinationLocationName.toLowerCase() == document.getElementById('destinationTextField').value.toLowerCase() && document.getElementById('destinationTextField').value != '')
+            {
+                setDestinationInput();
+                lCorrect = true;
+            }  // if
+            else{
+                    $("#message_tag").append('<p>Invalid input for destination location!</p>');
+                    $("#message_tag").append('<p>Do you mean <a href="#" onClick="setDestinationInput()">' + lDestinationLocationName + '</a>?</p>');
+            }  // else
+        } // if
+        else {
+            $("#message_tag").append('Invalid input for destination location! Please try again.</p>');
+        }
     }  // if
 
-	return true;
+    return lCorrect;
 }  // function validateInput()
 
+// setOriginInput
+// Input: None
+// Output: None
+// Find possible origin location according to user input
 function onChangeOriginInput()
 { 
-			document.getElementById('originLatitudeTextField').value = "";
-			document.getElementById('originLongitudeTextField').value = "";
-}  // function onChangeOriginInput()
+    document.getElementById('originLatitudeTextField').value = "";
+    document.getElementById('originLongitudeTextField').value = "";
+    var lGeocoder = new google.maps.Geocoder();
+    var lAddress = document.getElementById('originTextField').value;
+    lGeocoder.geocode({ 'address': lAddress },
+    function (pResults, pStatus) {
+        if (pStatus == google.maps.GeocoderStatus.OK) {
+            var lResult = checkAddressIsInUSA(pResults);
+            if (lResult != null) {
+                lOriginLocation = lResult.geometry.location;
+                lOriginLocationName = lResult.formatted_address.replace(', USA', '');
+            } // if
+        } // if
+    }  // lambda function
+    );
+}  // function onChangeOriginInput
 
+// setDestinationInput
+// Input: None
+// Output: None
+// Find possible destination location according to user input
 function onChangeDestinationInput()
+{
+    document.getElementById('destinationLatitudeTextField').value = "";
+    document.getElementById('destinationLongitudeTextField').value = "";
+        var lGeocoder = new google.maps.Geocoder();
+        var lAddress = document.getElementById('destinationTextField').value;
+        lGeocoder.geocode({ 'address': lAddress },
+        function (pResults, pStatus) {
+            if (pStatus == google.maps.GeocoderStatus.OK) {
+                var lResult = checkAddressIsInUSA(pResults);
+                if (lResult != null) {
+                    lDestinationLocation = lResult.geometry.location;
+                    lDestinationLocationName = lResult.formatted_address.replace(', USA', '');
+                } // if
+            } // if
+        }  // lambda function
+        );
+}  // function onChangeDestinationInput
+
+// setOriginInput
+// Input: None
+// Output: None
+// Set the original input fields to the suggestion location
+function setOriginInput()
+{
+    document.getElementById('originTextField').value = lOriginLocationName;
+    document.getElementById('originLatitudeTextField').value = lOriginLocation.lat();
+    document.getElementById('originLongitudeTextField').value = lOriginLocation.lng();
+
+    validateInput();
+}  // function setOriginInput
+
+// setDestinationInput
+// Input: None
+// Output: None
+// Set the destination input fields to the suggestion location
+function setDestinationInput()
 { 
-			document.getElementById('destinationLatitudeTextField').value = "";
-			document.getElementById('destinationLongitudeTextField').value = "";
-}  // function onChangeDestinationInput()
+    document.getElementById('destinationTextField').value = lDestinationLocationName;
+    document.getElementById('destinationLatitudeTextField').value = lDestinationLocation.lat();
+    document.getElementById('destinationLongitudeTextField').value = lDestinationLocation.lng();
+
+    validateInput();
+}  // function setDestinationInput
+
+// checkAddressIsInUSA
+// Input: pResults Inputted GeocoderResults
+// Output: None
+// The function will loop through all results in inputted GeocoderResults
+// It will return the first result that is in US and has a city component
+// or null if there is no match
+function checkAddressIsInUSA(pResults)
+{
+    var lValidResult = null;
+    var lCountry = false;
+    var lCity = false;
+    $.each(pResults,
+    function (pResultKey, pResultValue) {
+        lCountry = false;
+        lCity = false;
+        $.each(pResultValue.address_components, function (pComponentKey, pComponentValue) {
+            $.each(pComponentValue.types, function (pTypeKey, pTypeValue) {
+                if (pTypeValue == 'country') {
+                    if (pComponentValue.short_name == 'US') {
+                        lCountry = true;
+                        if (lCity == true) {
+                            return;
+                        }  // if
+                    }  // if
+                }  // if
+                if (pTypeValue == 'locality') {
+                    lCity = true;
+                    if (lCountry == true) {
+                        return;
+                    }  // if
+                }  // if
+            });  // each
+
+            if (lCountry == true && lCity == true) 
+            {
+                lValidResult = pResultValue;
+                return;
+            }  // if
+        });  // each
+
+        if (lValidResult != null) {
+            return;
+        }  // if
+    });  // each
+
+    return lValidResult;
+}  // function checkAddressIsInUSA
+
+// checkSingleAddressIsInUSA
+// Input: pResults Inputted GeocoderResult
+// Output: None
+// The function will check the GeocoderResult for correct country and city
+// It will return the result if it is in US and has a city component
+// or null if there is no match
+function checkSingleAddressIsInUSA(pResult)
+{ 
+    var lValidResult = null;
+    var lCountry = false;
+    var lCity = false;
+        $.each(pResult.address_components, function (pComponentKey, pComponentValue) {
+            $.each(pComponentValue.types, function (pTypeKey, pTypeValue) {
+                if (pTypeValue == 'country') {
+                    if (pComponentValue.short_name == 'US') {
+                        lCountry = true;
+                        if (lCity == true) {
+                            return;
+                        }  // if
+                    }  // if
+                }  // if
+                if (pTypeValue == 'locality') {
+                    lCity = true;
+                    if (lCountry == true) {
+                        return;
+                    }  // if
+                }  // if
+            });  // each
+
+            if (lCountry == true && lCity == true) {
+                lValidResult = pResultValue;
+                return;
+            }  // if
+        });  // each
+
+    return lValidResult;
+}  // checkSingleAddressIsInUSA
