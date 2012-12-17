@@ -64,7 +64,7 @@ body {
 #currencyconverter {
 	position:relative;
 	height:30px;
-	width:350px;
+	width:520px;
 	margin-right:auto;
 	margin-left:auto;
 	left:20px;
@@ -73,8 +73,7 @@ body {
 #dateselection {
 	position:relative;
 	height:30px;
-	width:300px;
+	width:390px;
 	margin-right:auto;
 	margin-left:auto;
-	left:20px;
 }

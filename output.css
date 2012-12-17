@@ -11,6 +11,7 @@ body {
 	height:100%;
 	margin:0;
 	padding:0;
+	/*background-image:url('portfelia.jpg');*/
 }
 	
 /* DIV containing Google Map */
@@ -42,7 +43,7 @@ body {
 	margin-left:25px;
 	width:1250px;
 	height:600px;
-	margin-bottom:30px;
+	padding-bottom:30px;
 }
 
 /* Price Sorting Pop Down */
@@ -50,23 +51,9 @@ body {
 	position:relative;
 	margin-left:auto;
 	margin-right:auto;
-	width:200px;
+	width:550px;
 	height:30px;
-}
-
-
-/* DIV containing Redo Search link */
-#redolink {
-	position:relative;
-	margin-top:20px;
-	display: block;
-	/*
-	
-	margin-left:auto;
-	margin-right:auto;
-	width:250px;
-	*/
-	clear : both;
+	margin-top:50px;
 }
 
 h3 {
@@ -168,104 +155,6 @@ strong.source {
 	font-weight:bold;
 	color:#FF0000; /* Color code for Red */
 }
-=======
-/*
-** Cascade Style Sheet for Output HTML
-*/
-
-html {
-	height:100%;
-}
-
-body {
-	height:100%;
-	margin:0;
-	padding:0;
-	background-image:url('portfelia.jpg');
-}
-	
-/* DIV containing Google Map */
-#map_canvas {
-	height:100%;
-	float:left;
-	width:600px;
-	margin-left:auto;
-	margin-right:auto;
-}
-
-/* DIV containing results */
-#results {
-	
-	background-color:#FCFCFC;
-	border:1px solid #A7A7A7;
-	border-radius:6px 6px 6px 6px;
-	padding:5px;
-	float:right;
-	width:600px;
-	height:600px;
-	border:1px solid;
-	overflow:auto;
-	margin-left:auto;
-	margin-right:auto;
-}
-
-/* DIV containing both the Map and Results */
-#mainframe {
-	margin-left:25px;
-	width:1250px;
-	height:600px;
-	padding-bottom:30px;
-}
-
-/* Price Sorting Pop Down */
-#selection {
-	position:relative;
-	top:10px;
-	margin-left:auto;
-	margin-right:auto;
-	width:250px;
-	height:50px;
-	clear : both;
-}
-
-h3 {
-	font-size: 15px;
-	font-weight: 500;
-}
-
-p {
-	padding: 5px;
-}
-
-h3.headline {
-	border: 1px solid #A7A7A7;
-	padding: 5px;
-	margin: 10px 10px 0px;
-}
-
-div.userpic {
-	float: left;
-	display:inline-block;
-}
-
-h4.name {
-	clear: both;
-	margin-bottom: 0px;
-}
-
-div.inner_content {
-	float: left;
-	display:inline-block;
-	padding-top: 15px;
-	vertical-align: top;
-	padding-left: 15px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-span.inner {
-	display:inline-block;
-}
 
 span.price {
 	display: inline-block;
@@ -291,4 +180,3 @@ strong.traveltext {
 	font-weight: bold;
 	color: #FF0000; /* Color code for Red */
 }
->>>>>>> 03f86de23af21fa0ff45f633f3b50fc1309a8093

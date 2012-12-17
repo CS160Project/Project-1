@@ -9,7 +9,7 @@
 	color: black;
 	font-size: 11px;
 	font-family: Tahoma;
-	background-color: #DFF6FF;
+	background-color: #B9EBFF;
 	/*background-image*/
 }
 .dhtmlxcalendar_ifr {

@@ -26,7 +26,8 @@
 		<strong>To: </strong><input id="destinationTextField" type="text" name="destinationTextField" size="30" onchange="onChangeDestinationInput()"/>
 	</div>
 	<div id="currencyconverter">
-		 <!-- Selection for Currency Converter -->
+		<strong>Currency Converter: </strong>
+		<!-- Selection for Currency Converter -->
 		<select name ="currencytype">
                 	<option value="AFA">Afghan Afghani (AFA)</option>
 	                <option value="DZD">Algerian Dinar (DZD)</option>
@@ -194,12 +195,13 @@
 		<div id="traveltypeselection">
 			<input type="radio" name ="travelStatus" value="need" checked="checked"/>Passenger
 			<input type="radio" name ="travelStatus" value="offer"/>Driver
-			<input type="radio" name ="travelStatus" value="either"/>Both
+			<input type="radio" name ="travelStatus" value="either"/>Either
 		</div>
 	</div>
 		
 	<div id="dateselection">
-		<strong>Date: </strong><input id="date" name="dateselected" readonly/>
+		<strong>Date (optional): </strong>
+		<input id="date" name="dateselected" readonly/>
 	</div>
 	<div id="searchbutton"> <!-- DIV for search button -->
 		<input type="submit" name="submit" value="Search"/>
@@ -212,11 +214,12 @@
 	<input name ="destinationLongitudeTextField" id="destinationLongitudeTextField" type="hidden" size="40"/>
 </form>
 <div id="selection"> <!-- DIV containing the Price Sorter Selection -->
+	<strong>Sort (default - departure date): </strong>
 	<select id ="cmbSort" onChange ="loadJSON()">
-	<option>Default Price -- Ascending</option>
-	<option>Price -- Descending</option>
-	<option>Location -- Ascending</option>
-	<option>Location -- Descending</option>
+		<option>Price -- Ascending</option>
+		<option>Price -- Descending</option>
+		<option>Starting Location -- Ascending</option>
+		<option>Starting Location -- Descending</option>
 	</select>
 </div>
 <div id="mainframe">
