@@ -43,11 +43,11 @@ function initialize() {
 		        return;
 		    }  // if
 		    // If the location is valid, set the longitude and latitude to the hidden fields
-		    var lLocation = checkSingleAddressIsInUSA(lPlace);
+		    var lLocation = checkSingleAddressIsInUSA(lPlace, "origin");
 		    if (lLocation != null) 
             		{
 		        lOriginLocation = lLocation.geometry.location;
-		        lOriginLocationName = lLocation.formatted_address;
+		        
 		        document.getElementById('originLatitudeTextField').value = lOriginLocation.lat();
 		        document.getElementById('originLongitudeTextField').value = lOriginLocation.lng();
 		    	}  // if
@@ -73,11 +73,10 @@ function initialize() {
 				return;
 			}  // if
 	    // If the location is valid, set the longitude and latitude to the hidden fields
-            var lLocation = checkSingleAddressIsInUSA(lPlace);
+            var lLocation = checkSingleAddressIsInUSA(lPlace, "destination");
 		    if (lLocation != null) 
             {
 			lDestinationLocation = lLocation.geometry.location;
-           		lDestinationLocationName = lLocation.formatted_address;
 
 			document.getElementById('destinationLatitudeTextField').value = lDestinationLocation.lat();
 			document.getElementById('destinationLongitudeTextField').value = lDestinationLocation.lng();
@@ -101,8 +100,7 @@ function validateInput()
     {    
         lCorrect = false;  
         if (lOriginLocation != null) {
-            if(lOriginLocationName.toLowerCase() == document.getElementById('originTextField').value.toLowerCase() &&
-            document.getElementById('originTextField').value != '')
+            if(document.getElementById('originTextField').value != '' && lOriginLocationName.toLowerCase() == document.getElementById('originTextField').value.toLowerCase())
             {
                     setOriginInput();
                     lCorrect = true;
@@ -121,7 +119,7 @@ function validateInput()
     {
         lCorrect = false;
         if (lDestinationLocation != null) {
-            if(lDestinationLocationName.toLowerCase() == document.getElementById('destinationTextField').value.toLowerCase() && document.getElementById('destinationTextField').value != '')
+            if(document.getElementById('destinationTextField').value != '' && lDestinationLocationName.toLowerCase() == document.getElementById('destinationTextField').value.toLowerCase())
             {
                 setDestinationInput();
                 lCorrect = true;
@@ -132,7 +130,7 @@ function validateInput()
             }  // else
         } // if
         else {
-            $("#message_tag").append('Invalid input for destination location! Please try again.</p>');
+            $("#message_tag").append('<p>Invalid input for destination location! Please try again.</p>');
         }
     }  // if
 
@@ -152,10 +150,9 @@ function onChangeOriginInput()
     lGeocoder.geocode({ 'address': lAddress },
     function (pResults, pStatus) {
         if (pStatus == google.maps.GeocoderStatus.OK) {
-            var lResult = checkAddressIsInUSA(pResults);
+            var lResult = checkAddressIsInUSA(pResults, "origin");
             if (lResult != null) {
                 lOriginLocation = lResult.geometry.location;
-                lOriginLocationName = lResult.formatted_address.replace(', USA', '');
             } // if
         } // if
     }  // lambda function
@@ -175,10 +172,9 @@ function onChangeDestinationInput()
         lGeocoder.geocode({ 'address': lAddress },
         function (pResults, pStatus) {
             if (pStatus == google.maps.GeocoderStatus.OK) {
-                var lResult = checkAddressIsInUSA(pResults);
+                var lResult = checkAddressIsInUSA(pResults, "destination");
                 if (lResult != null) {
                     lDestinationLocation = lResult.geometry.location;
-                    lDestinationLocationName = lResult.formatted_address.replace(', USA', '');
                 } // if
             } // if
         }  // lambda function
@@ -217,43 +213,15 @@ function setDestinationInput()
 // The function will loop through all results in inputted GeocoderResults
 // It will return the first result that is in US and has a city component
 // or null if there is no match
-function checkAddressIsInUSA(pResults)
-{
+function checkAddressIsInUSA(pResults, type) {
     var lValidResult = null;
-    var lCountry = false;
-    var lCity = false;
-    $.each(pResults,
-    function (pResultKey, pResultValue) {
-        lCountry = false;
-        lCity = false;
-        $.each(pResultValue.address_components, function (pComponentKey, pComponentValue) {
-            $.each(pComponentValue.types, function (pTypeKey, pTypeValue) {
-                if (pTypeValue == 'country') {
-                    if (pComponentValue.short_name == 'US') {
-                        lCountry = true;
-                        if (lCity == true) {
-                            return;
-                        }  // if
-                    }  // if
-                }  // if
-                if (pTypeValue == 'locality') {
-                    lCity = true;
-                    if (lCountry == true) {
-                        return;
-                    }  // if
-                }  // if
-            });  // each
+    
+    $.each(pResults, function (pResultKey, pResultValue) {
+        lValidResult = checkSingleAddressIsInUSA(pResultValue, type);
 
-            if (lCountry == true && lCity == true) 
-            {
-                lValidResult = pResultValue;
-                return;
-            }  // if
-        });  // each
-
-        if (lValidResult != null) {
+	if (lValidResult != null) {
             return;
-        }  // if
+        } // if
     });  // each
 
     return lValidResult;
@@ -265,34 +233,53 @@ function checkAddressIsInUSA(pResults)
 // The function will check the GeocoderResult for correct country and city
 // It will return the result if it is in US and has a city component
 // or null if there is no match
-function checkSingleAddressIsInUSA(pResult)
+function checkSingleAddressIsInUSA(pResult, type)
 { 
+    var city;
+    var state;
     var lValidResult = null;
     var lCountry = false;
     var lCity = false;
-        $.each(pResult.address_components, function (pComponentKey, pComponentValue) {
+    var lState = false;
+      $.each(pResult.address_components, function (pComponentKey, pComponentValue) {
             $.each(pComponentValue.types, function (pTypeKey, pTypeValue) {
                 if (pTypeValue == 'country') {
                     if (pComponentValue.short_name == 'US') {
                         lCountry = true;
-                        if (lCity == true) {
+                        if (lCity == true && lState == true) {
                             return;
                         }  // if
                     }  // if
                 }  // if
                 if (pTypeValue == 'locality') {
                     lCity = true;
-                    if (lCountry == true) {
+                    city = pComponentValue.long_name;
+		    if (lCountry == true && lState == true) {
                         return;
+                    }  // if
+                }  // if
+		if (pTypeValue == 'administrative_area_level_1') {
+                    lState = true;
+		    state = pComponentValue.short_name;
+		    if (lCity == true && lCountry == true) {
+                            return; 
                     }  // if
                 }  // if
             });  // each
 
-            if (lCountry == true && lCity == true) {
-                lValidResult = pResultValue;
-                return;
-            }  // if
-        });  // each
+            if (lCountry == true && lCity == true && lState == true) {
+                //alert(city + ", " + state);
+		if (type == "origin") {
+			lOriginLocationName = city + ", " + state;
+		}
+		else {
+			lDestinationLocationName = city + ", " + state;
+		}
 
+		lValidResult = pResult;                
+		return;
+            }  // if
+    });  // each
+    
     return lValidResult;
 }  // checkSingleAddressIsInUSA

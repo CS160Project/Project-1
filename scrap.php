@@ -34,7 +34,7 @@
 	$lDestinationLng = $_POST['destinationLongitudeTextField'];
 
 	// Check to see if location is a zipcode
-	function isZipcode($str) {
+	/*function isZipcode($str) {
 		if (strlen($str) === 5) {
 			for ($i = 0; $i < 5; $i++) {
 				if (!(is_numeric($str[$i]))) {
@@ -46,7 +46,7 @@
 		else {
 			return false;
 		}
-	}
+	}*/
 
 	// Check to see if location is 2-letters state
 	function isState($str) {
@@ -312,11 +312,11 @@
 		$ridejoy->clear();
 	}
 
-	if (isZipcode($start) === true && isZipcode($end) === true) {
+	/*if (isZipcode($start) === true && isZipcode($end) === true) {
 		$zimrideLink = "http://www.zimride.com/search?s=$start&e=$end&date=$month%2F$day%2F$year&filter_type=$travelStatus&filter_vehicle=$vehicleType";
 		$ridejoyLink = "http://ridejoy.com/rides/search?utf8=%E2%9C%93&type=$rjTravelStatus&origin=$start&origin_latitude=$lOriginLat&origin_longitude=$lOriginLng&destination=$end&destination_latitude=$lDestinationLat&destination_longitude=$lDestinationLng&date=$month%2F$day%2F$year";
 	}
-	else {
+	else {*/
 		// Splitting state and city
 		$sterm = preg_split("/[,]+/", $start);
 		$eterm = preg_split("/[,]+/", $end);
@@ -359,7 +359,10 @@
 				echo "<script type=\"text/javascript\">window.alert(\"Not a valid 2-letter State abbreviation: $tmp1 and $tmp2\")</script>";
 			}
 		}
-	}
+		else {
+			echo "<script type=\"text/javascript\">window.alert(\"Not a valid [City,2-letters State] format: $start and $end\")</script>";
+		}
+	//}
 
 	// Multiple result pages scrapping method for zimride (ridejoy doesn't have multiple pages) (Not working)
 	/*$continueScrap = false;

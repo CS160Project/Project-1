@@ -324,4 +324,5 @@ function filter(pData) {
 	}  // switch
 
 	processData(lObject);
+	showMap();
 }
