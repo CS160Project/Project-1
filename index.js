@@ -11,11 +11,6 @@ var lDestinationLocationName;
 // The objects will attch listeners, so when user click on one of autocomplete opinions
 // The latitude and longitude for the location will be filled into the hidden field
 function initialize() {
-	// Create object reference to the input origin location
-	var lOriginInput = document.getElementById('originTextField');
-	// Create the autocomplete for the input origin location
-	var lOriginAutocomplete = new google.maps.places.Autocomplete(lOriginInput);
-
 	// Setting up Calendar for Date field
 	myCalendar = new dhtmlXCalendarObject(["date"]);
 	myCalendar.hideTime();
@@ -28,6 +23,11 @@ function initialize() {
 	//myCalendar.setDate(date);
 	myCalendar.setSensitiveRange(date, null);
 
+	// Create object reference to the input origin location
+	var lOriginInput = document.getElementById('originTextField');
+	// Create the autocomplete for the input origin location
+	var lOriginAutocomplete = new google.maps.places.Autocomplete(lOriginInput);
+
 	// Add listener to the autcomplete
 	// Once the user click on one of autocomplete opinions, the latitude and longitude
 	// for the location will be filled into the hidden field
@@ -35,7 +35,7 @@ function initialize() {
 		function () {
 		    // Set the origin input as none
 		    lOriginInput.className = '';
-		    // Retrive the location based on the current autcomplete
+		    // Retrieve the location based on the current autcomplete
 		    var lPlace = lOriginAutocomplete.getPlace();
 		    // If the returned place is not on the map, stop performing the process
 		    if (!lPlace.geometry) {
@@ -45,12 +45,12 @@ function initialize() {
 		    // If the location is valid, set the longitude and latitude to the hidden fields
 		    var lLocation = checkSingleAddressIsInUSA(lPlace);
 		    if (lLocation != null) 
-            {
+            		{
 		        lOriginLocation = lLocation.geometry.location;
 		        lOriginLocationName = lLocation.formatted_address;
 		        document.getElementById('originLatitudeTextField').value = lOriginLocation.lat();
 		        document.getElementById('originLongitudeTextField').value = lOriginLocation.lng();
-		    }  // if
+		    	}  // if
 		}  // lambda function
                 );     // google.maps.event.addListener
 
@@ -65,25 +65,25 @@ function initialize() {
                 function () {
 			// Set the destination input as none
 			lDestinationInput.className = '';
-			// Retrive the location based on the current autcomplete
+			// Retrieve the location based on the current autcomplete
 			var lPlace = lDestinationAutocomplete.getPlace();
 			// If the returned place is not on the map, stop performing the process
 			if (!lPlace.geometry) {
 				lDestinationInput.className = 'not found';
 				return;
 			}  // if
-			// If the location is valid, set the longitude and latitude to the hidden fields
+	    // If the location is valid, set the longitude and latitude to the hidden fields
             var lLocation = checkSingleAddressIsInUSA(lPlace);
 		    if (lLocation != null) 
             {
 			lDestinationLocation = lLocation.geometry.location;
-            lDestinationLocationName = lLocation.formatted_address;
+           		lDestinationLocationName = lLocation.formatted_address;
 
 			document.getElementById('destinationLatitudeTextField').value = lDestinationLocation.lat();
 			document.getElementById('destinationLongitudeTextField').value = lDestinationLocation.lng();
             }  // if
-                }  // lambda function
-                );  // google.maps.event.addListener
+          }  // lambda function
+       );  // google.maps.event.addListener
 }  // function initialize()
 
 // Set the google map event listener to start to active once the load function completes and call initialize function
@@ -91,7 +91,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 // validateInput
 // Input: None
-// Output: Ture if all input is valid, false if not
+// Output: True if all input is valid, false if not
 // Check if the input is correct before sending 
 function validateInput()
 {
@@ -117,7 +117,7 @@ function validateInput()
         }  // else
     }  // if
 
-	if(document.getElementById('destinationLatitudeTextField').value  == "")
+    if(document.getElementById('destinationLatitudeTextField').value  == "")
     {
         lCorrect = false;
         if (lDestinationLocation != null) {
