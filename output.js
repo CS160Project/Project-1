@@ -303,7 +303,7 @@ function filter(pData) {
 
 	switch(lSortOption)
 	{
-		case "Default Price -- Ascending":
+		case "Price -- Ascending":
 		lObject = $(lJsonObject).sort(sortPriceAscending);
 		break;
 
@@ -311,11 +311,11 @@ function filter(pData) {
 		lObject = $(lJsonObject).sort(sortPriceDescending);
 		break;
 
-		case "Location -- Ascending":
+		case "Starting Location -- Ascending":
 		lObject = $(lJsonObject).sort(sortLocationAscending);
 		break;
 
-		case "Location -- Descending":
+		case "Starting Location -- Descending":
 		lObject = $(lJsonObject).sort(sortLocationDescending);
 		break;
 
