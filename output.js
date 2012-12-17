@@ -23,36 +23,48 @@ $("document").ready(function() {
 	var cur_month = d.getMonth() + 1;
 	var cur_year = d.getFullYear();
 	var date = cur_year+"-"+cur_month+"-"+cur_date;
-	//alert(cur_month);
-	//myCalendar.setDate(date);
 	myCalendar.setSensitiveRange(date, null);
 
+	// Setting up loading message
+	$("#mainframe").attr("style", "position:relative; visibility: hidden");
+	$("#loading").empty();
+	$("#loading").append('<span>Loading results and map ...</span>');
+	
+	// Obtaining and processing data from json file
 	$.getJSON("results.json", function(data) {
 		processData(data);
 		showMap();
 	});
 });
 
+// Processing the json data
 function processData(data) {
+	// Emptying the div in preparation
 	$("#results").empty();
 
+	// Iterating through each element of the data
 	$.each(data, function(i, item) {
-		createCell(i, item);
+		createCell((i + 1), item);
 	});
 
-	$("div#c0").parent().get(0).scrollIntoView();
-
+	// Scroll to top of list
+	$("div#c1").parent().get(0).scrollIntoView();
+	//var tmp = $("div#c1").attr("id").substring(1) - 1;
+	//alert(tmp);
+	// Creating hover mouse event for results
 	for (var i = 0; i < addressesFrom.length; i++) {
 		var infowindow;
-		$("div#c"+i).hover(function() {
+		var index = i + 1;
+		$("div#c"+index).hover(function() {
 				$(this).css({"background-color": "#29598E"});
-				var tmp = $(this).attr("id");
-				map.panTo(markers[tmp.substring(1)].getPosition());
+				var tmp = $(this).attr("id").substring(1) - 1;
+				//alert(tmp);
+				map.panTo(markers[tmp].getPosition());
 				infowindow = new google.maps.InfoWindow({
-					content: "<span width=20px height=20px>"+$.trim(markers[tmp.substring(1)].getTitle())+"</span><br /><span width=20px height=20px><strong>"+$.trim(profileName[tmp.substring(1)])+"</strong></span><br /><span width=20px height=20px>"+$.trim(addressesFrom[tmp.substring(1)])+"</span><span width=20px height=20px> to "+$.trim(addressesTo[tmp.substring(1)])+"</span>"
+					content: "<span width=20px height=20px>"+$.trim(markers[tmp].getTitle())+"</span><br /><span width=20px height=20px><strong>"+$.trim(profileName[tmp])+"</strong></span><br /><span width=20px height=20px>"+$.trim(addressesFrom[tmp])+"</span><span width=20px height=20px> to "+$.trim(addressesTo[tmp])+"</span>"
 				});
 
-				infowindow.open(map, markers[tmp.substring(1)]);
+				infowindow.open(map, markers[tmp]);
 				//alert(marker[tmp[1]].getTitle());
 			}, function() {
 				$(this).css({"background-color": "white"});
@@ -62,6 +74,7 @@ function processData(data) {
 	}
 }
 
+// Creating individual results
 function createCell(i, item) {
 	var cell = "<a id=\"a"+i+"\" href=\""+item.profile+"\" target =\"_blank\">";
 		cell += "<div class=\"result_box\" id=\"c"+i+"\">";
@@ -99,7 +112,7 @@ function createCell(i, item) {
 
 	$("#results").append(cell);
 
-	// Storing addressesFrom for Markers and Infowindows
+	// Storing addressesFrom, addressesTo and profileName for Markers and Infowindows
 	if (item.from != "") {
 		addressesFrom.push(item.from);
 		addressesTo.push(item.to);
@@ -114,12 +127,12 @@ function createCell(i, item) {
 	//alert("cell length: "+cell.length);
 }
 
+// Displaying the Map
 function showMap() {
-	directionsDisplay = new google.maps.DirectionsRenderer();
+	//directionsDisplay = new google.maps.DirectionsRenderer();
 	currentPosition = new google.maps.LatLng(37.3041, -121.8727);
 	geocoder = new google.maps.Geocoder();
-	$("#map_canvas").empty();
-
+	
 	var mapOptions = {
 		zoom: 8,
 		center: currentPosition,
@@ -128,7 +141,7 @@ function showMap() {
 
 	map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
 
-	directionsDisplay.setMap(map);
+	//directionsDisplay.setMap(map);
 
 	// Current Location
 	/*if(navigator.geolocation) {
@@ -169,7 +182,10 @@ function showMap() {
 
 // Use geoCode to get the location on the map to place the marker
 function geocodeAddress() {
-	for (var k = 0; k < 1 && geoIndex < addressesFrom.length; ++k) {
+	// Processing addresses in one interval
+	//It doesnt loop right now since it is set to 1 but in case we want to increase it later, the loop is left as it is
+	var requestPerInterval = 1;
+	for (var k = 0; k < requestPerInterval && geoIndex < addressesFrom.length; ++k) {
 		codeAddress(geoIndex);
 		geoIndex++;
 	}
@@ -178,14 +194,24 @@ function geocodeAddress() {
 		clearInterval(geoTimer);
 		//alert(markers.length+", "+addressesFrom.length);
 		//var markerCluster = new MarkerClusterer(map, markers);
-		alert("Done placing markers");
+
+		// Showing map and result
+		$("#loading").empty();
+		$("#loading").append("<span>Done processing " + addressesFrom.length + " results</span>");
+		$("#mainframe").attr("style", "position:relative; visibility: visible") 
+
+		// Adjusting the map to new bounding box
+		map.fitBounds(bounds);
+
+		//alert("Done placing " + addressesFrom.length + " markers");
 	}
 }
 
+// Processing addresses with Geocode
 function codeAddress(index) {
 	if (addressesFrom[index] != "N/A") {
 		geocoder.geocode( {'address': addressesFrom[index]}, function(results, status) {
-			processGeocode(results, status, index);
+			processGeocode(results, status, (index + 1));
 		});
 	}
 	else {
@@ -193,17 +219,25 @@ function codeAddress(index) {
 	}
 }
 
+// Processing result from Geocode
 function processGeocode(results, status, index) {
 	if (status == google.maps.GeocoderStatus.OK) {
 		var place = results[0].geometry.location;
 
       		marker = new google.maps.Marker({
 			map: map,
-			position: results[0].geometry.location,
+			position: place,
 			title: index.toString()
 		});
 
+		// Storing markers in an array
 		markers.push(marker);
+
+		// Extending the bounds object with each LatLng
+       		bounds.extend(place);
+
+           	// Adjusting the map to new bounding box
+       		//map.fitBounds(bounds);
 
 		// Click event for marker: Zoom in
 		google.maps.event.addListener(marker, "click", function() {
@@ -225,12 +259,6 @@ function processGeocode(results, status, index) {
 			//var cell = document.getElementById("c"+index);
 			$("div#c"+index).css({"background-color": "white"});
 		});
-
-		// Extending the bounds object with each LatLng
-       		bounds.extend(place);
-
-           	// Adjusting the map to new bounding box
-       		map.fitBounds(bounds);
 	}
 	else {
 		alert("Geocode was not successful for the following reason: " + status);
@@ -284,6 +312,7 @@ function sortPriceAscending(pFObject, pSObject) {
 	}
 };  // sortPriceAscending
 
+// Loading json data for sort filtering
 function loadJSON() {
 	$.getJSON("results.json", function(json) {filter(json);});
 }  // loadJSON

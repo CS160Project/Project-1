@@ -66,6 +66,7 @@
 		}
 	}
 
+	// Searching current database for duplicate (name, origin, destination, travel type, trip type)
 	function searchDuplicate($name, $from, $to, $travelType, $tripType) {
 		global $arr;
 
@@ -80,6 +81,7 @@
 		return false;
 	}
 
+	// Scrap for zimride.com
 	function zimrideScrap ($link) {
 		global $arr;
 		global $currencyType;
@@ -212,6 +214,7 @@
 		$zimride->clear();
 	}
 
+	// Scrap for ridejoy.com
 	function ridejoyScrap($link) {
 		global $arr;
 		global $currencyType;
@@ -317,7 +320,7 @@
 		$ridejoyLink = "http://ridejoy.com/rides/search?utf8=%E2%9C%93&type=$rjTravelStatus&origin=$start&origin_latitude=$lOriginLat&origin_longitude=$lOriginLng&destination=$end&destination_latitude=$lDestinationLat&destination_longitude=$lDestinationLng&date=$month%2F$day%2F$year";
 	}
 	else {*/
-		// Splitting state and city
+		// Splitting state and city (expecting format of [city, 2-letters state])
 		$sterm = preg_split("/[,]+/", $start);
 		$eterm = preg_split("/[,]+/", $end);
 		
@@ -378,7 +381,7 @@
 	} while ($continueScrap == true);*/
 	
 	// Process Zimride
-	$temp = zimrideScrap($zimrideLink);
+	zimrideScrap($zimrideLink);
 	
 	/*$zrLink = "http://www.zimride.com/search?s=$loc1%2C+$sstate&e=$loc2%2C+$estate&date=&filter_type=$zrTravelStatus&filter_frequency=one-time&filter_privacy=public&filter_vehicle=$vehicleType&pageID=2";
 	$temp = zimrideScrap($zrLink);	

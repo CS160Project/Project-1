@@ -95,7 +95,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 function validateInput()
 {
     var lCorrect = true;
+    
     $("#message_tag").empty();
+   
     if (document.getElementById('originLatitudeTextField').value == "")
     {    
         lCorrect = false;  
@@ -106,12 +108,12 @@ function validateInput()
                     lCorrect = true;
             }  // if
             else{
-                $("#message_tag").append('<p>Invalid input for original location!</p>');
+                $("#message_tag").append('<p>Invalid input for <strong>origin</strong> location!</p>');
                 $("#message_tag").append('<p>Do you mean <a href ="#" onClick="setOriginInput()">' + lOriginLocationName + '</a>?</p>');
             }  // else
         } // if
         else {
-                $("#message_tag").append('<p>Invalid input for original location! Please try again.</p>');
+                $("#message_tag").append('<p>Invalid input for <strong>origin</strong> location! Please try again.</p>');
         }  // else
     }  // if
 
@@ -125,12 +127,12 @@ function validateInput()
                 lCorrect = true;
             }  // if
             else{
-                    $("#message_tag").append('<p>Invalid input for destination location!</p>');
+                    $("#message_tag").append('<p>Invalid input for <strong>destination</strong> location!</p>');
                     $("#message_tag").append('<p>Do you mean <a href="#" onClick="setDestinationInput()">' + lDestinationLocationName + '</a>?</p>');
             }  // else
         } // if
         else {
-            $("#message_tag").append('<p>Invalid input for destination location! Please try again.</p>');
+            $("#message_tag").append('<p>Invalid input for <strong>destination</strong> location! Please try again.</p>');
         }
     }  // if
 
@@ -211,7 +213,7 @@ function setDestinationInput()
 // Input: pResults Inputted GeocoderResults
 // Output: None
 // The function will loop through all results in inputted GeocoderResults
-// It will return the first result that is in US and has a city component
+// It will return the first result that is in US and has a city component and a state component
 // or null if there is no match
 function checkAddressIsInUSA(pResults, type) {
     var lValidResult = null;
@@ -230,7 +232,7 @@ function checkAddressIsInUSA(pResults, type) {
 // checkSingleAddressIsInUSA
 // Input: pResults Inputted GeocoderResult
 // Output: None
-// The function will check the GeocoderResult for correct country and city
+// The function will check the GeocoderResult for correct country, city and state
 // It will return the result if it is in US and has a city component
 // or null if there is no match
 function checkSingleAddressIsInUSA(pResult, type)
@@ -241,8 +243,9 @@ function checkSingleAddressIsInUSA(pResult, type)
     var lCountry = false;
     var lCity = false;
     var lState = false;
-      $.each(pResult.address_components, function (pComponentKey, pComponentValue) {
-            $.each(pComponentValue.types, function (pTypeKey, pTypeValue) {
+    
+    $.each(pResult.address_components, function (pComponentKey, pComponentValue) {
+         $.each(pComponentValue.types, function (pTypeKey, pTypeValue) {
                 if (pTypeValue == 'country') {
                     if (pComponentValue.short_name == 'US') {
                         lCountry = true;
@@ -278,7 +281,7 @@ function checkSingleAddressIsInUSA(pResult, type)
 
 		lValidResult = pResult;                
 		return;
-            }  // if
+        }  // if
     });  // each
     
     return lValidResult;
