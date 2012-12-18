@@ -32,8 +32,27 @@ $("document").ready(function() {
 	
 	// Obtaining and processing data from json file
 	$.getJSON("results.json", function(data) {
-		processData(data);
-		showMap();
+		// Checking for empty data file
+		if (data.length > 0) {
+			processData(data);
+			showMap();
+		}
+		else {
+			$("#results").empty();
+			currentPosition = new google.maps.LatLng(37.3041, -121.8727);
+	
+			var mapOptions = {
+				zoom: 8,
+			center: currentPosition,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+
+			map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+			
+			$("#loading").empty();
+			$("#loading").append("<span>There was " + addressesFrom.length + " results</span>");
+			$("#mainframe").attr("style", "position:relative; visibility: visible") 
+		}
 	});
 });
 
@@ -192,7 +211,7 @@ function geocodeAddress() {
 
 	if (geoIndex >= addressesFrom.length) {
 		clearInterval(geoTimer);
-		//alert(markers.length+", "+addressesFrom.length);
+		//alert(markers.length + ", " + addressesFrom.length);
 		//var markerCluster = new MarkerClusterer(map, markers);
 
 		// Showing map and result
