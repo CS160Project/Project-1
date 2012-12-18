@@ -19,6 +19,7 @@
 		$rjTravelStatus = "";
 	}
 
+	// Sites has no bus results to find out the different between car and bus
 	$vehicleType = $_POST['vehicleType'];
 	//echo "<script type=\"text/javascript\">window.alert(\"Scrap: $vehicleType\")</script>";
 	$currencyType = $_POST['currencytype'];
@@ -85,6 +86,7 @@
 	function zimrideScrap ($link) {
 		global $arr;
 		global $currencyType;
+		global $vehicleType;
 		//echo "<script type=\"text/javascript\">window.alert(\"$link\")</script>";
 		$zimride = file_get_html($link);
 		
@@ -188,7 +190,8 @@
 					'price' => $main8,
 					'seat' => $main9,
 					'triptype' => $main11,
-					'currencytype' => $currencyType
+					'currencytype' => $currencyType,
+					'vehicletype' => $vehicleType
 				);
 			}
 			else {
@@ -304,7 +307,8 @@
 					'price' => $main8,
 					'seat' => $main9,
 					'triptype' => $main11,
-					'currencytype' => $currencyType
+					'currencytype' => $currencyType,
+					'vehicletype' => "N/A"
 				);		
 			}
 			else {

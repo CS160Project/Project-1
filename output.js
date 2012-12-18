@@ -122,7 +122,13 @@ function createCell(i, item) {
 					cell += "<h3>";
 						cell += "<span class=\"inner\"> "+item.from;
 							cell += " <span class=\"travel_type\">&rarr;</span> "+item.to;
-						cell += "</span>";
+						cell += "</span><br />";
+						/*if (item.vehicletype != "N/A") {
+							cell += "<span class=\"vehicletype\">Traveling by "+item.vehicletype+"</span>";
+						}
+						else {
+							cell += "<span class=\"vehicletype\">Unknown vehicle type</span>";
+						}*/
 					cell += "</h3>";
 				cell += "</div>";
 			cell += "</div>";
